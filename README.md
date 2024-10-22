@@ -1,13 +1,12 @@
 # \LibraryLink\
 
-> Authors: \[Matthew Godinez](https://github.com/jarvisghost13)\, \[Ricky Ho](https://github.com/wikkiboi)\, \[Tareq Hassan](https://github.com/Thass004)\, \[Haishan Zhao](https://github.com/HaiShan-el)\, \[Advit Singh](https://github.com/Ghostmaster-UI)\
+> Authors: \<[Matthew Godinez](https://github.com/jarvisghost13)\>, \<[Ricky Ho](https://github.com/wikkiboi)\>, \<[Tareq Hassan](https://github.com/Thass004)\>, \<[Haishan Zhao](https://github.com/HaiShan-el)\>, \<[Advit Singh](https://github.com/Ghostmaster-UI)\>
 
 ## Project Description
 
-Overview
-LibraryLink is a Library Management System that allows users to sign up, log in, and borrow books from the library database. The system provides users with personalized features such as book recommendations and account management for borrow lists. It also includes an interface for administrators that can add, edit, and remove books in the library's catalog.
-Why is this important or interesting to us?
-Libraries play an essential role in providing access to education, research, and entertainment. We want to create software that is user-friendly for people of all ages and can also provide to the user beyond the software itself. By building a management system that mimics what a real-life library can provide, we are not only grasping a better understanding of object-oriented design and software accessibility, but we are also promoting the wonders of reading and lifelong learning to people of all ages.
+> * LibraryLink is a Library Management System that allows users to sign up, log in, and borrow books from the library database. The system provides users with personalized features such as book recommendations and account management for borrow lists. It also includes an interface for administrators that can add, edit, and remove books in the library's catalog.
+> * Why is this important or interesting to us?
+> * Libraries play an essential role in providing access to education, research, and entertainment. We want to create software that is user-friendly for people of all ages and can also provide to the user beyond the software itself. By building a management system that > * mimics what a real-life library can provide, we are not only grasping a better understanding of object-oriented design and software accessibility, but we are also promoting the wonders of reading and lifelong learning to people of all ages.
 Tools and Technologies
 Programming Language: C++ IDE: Visual Studio Code
 Version Control: Git & GitHub
