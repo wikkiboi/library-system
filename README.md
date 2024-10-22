@@ -10,7 +10,7 @@
  * Programming Language: C++
  * IDE: Visual Studio Code
  * Version Control: Git & GitHub
- * Account Database: via CSV file
+ * Account/Book Database: via CSV file
  ## Features
  * Login/Register for account
  * Regular Users:
