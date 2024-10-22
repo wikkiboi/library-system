@@ -1,6 +1,6 @@
 # \LibraryLink\
 
-Authors: \[Matthew Godinez](https://github.com/jarvisghost13)\, \[Ricky Ho](https://github.com/wikkiboi)\, \[Tareq Hassan](https://github.com/Thass004)\, \[Haishan Zhao](https://github.com/HaiShan-el)\, \[Advit Singh](https://github.com/Ghostmaster-UI)\
+> Authors: \[Matthew Godinez](https://github.com/jarvisghost13)\, \[Ricky Ho](https://github.com/wikkiboi)\, \[Tareq Hassan](https://github.com/Thass004)\, \[Haishan Zhao](https://github.com/HaiShan-el)\, \[Advit Singh](https://github.com/Ghostmaster-UI)\
 
 ## Project Description
 
