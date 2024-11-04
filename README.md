@@ -29,7 +29,7 @@ All users will be prompted to log in or register for an account with a username/
  > ## Phase II
 
 ## Navigation Diagram
- 
+ The program will run on a CLI, so users would navigate through menus and commands rather than graphical screens. Below is a brief navigation flow for the CLI. Admin screens are highlighted blue and regular user  screens are highlighted in light green.
  
  ![LibraryLink Navigation Diagram](https://i.imgur.com/jbaYgQS.png)
 
