@@ -27,28 +27,33 @@
 All users will be prompted to log in or register for an account with a username/password. Each user after registering will also be given a Library ID that can also be used to login. Regular users will be prompted to an interface where they can view their account status, available book catalog, and also an option to borrow, renew, or return books. Administrator accounts will be prompted to a separate interface where they can view account status, book catalog with borrow status, and the option to add, update, or remove books from the book catalog. The book catalog will also take in an input that will sort the catalog by said input (i.e. Sort By Author, Genre, etc.).
 
  > ## Phase II
- > In addition to completing the "User Interface Specification" and "Class Diagram" sections below, you will need to:
- > * Create an "Epic" (note) for each feature. Place these epics in the `Product Backlog` column
- > * Complete your first *sprint planning* meeting to plan out the next 7 days of work.
- >   * Break down the "Epics" into smaller actionable user stories (i.e. smaller development tasks). Convert them into issues and assign them to team members. Place these in the `TODO` column (aka Sprint Backlog).
- >   * These cards should represent roughly 7 days worth of development time for your team. Then, once the sprint is over you should be repeating these steps to plan a new sprint, taking you until your second scrum meeting with the reader in phase III.
- > * Each team member needs to submit the Individual Contributions Form on Canvas for this phase. In this form, you need to fill in the names of all team members, the percentage of work contributed by each member for phase  II, and a description of their contributions. Remember that each team member should submit the form individually.
- > * Schedule two check-ins using Calendly. Both time slots should be during your lab on week 6. Your entire team must be present for both check-ins.
- >   * The first check-in needs to be scheduled with your lab TA. During that meeting, you will discuss your project design/class diagram from phase II.
- >   * The second check-in should be scheduled with a reader. During that meeting you will discuss:
- >     * The tasks you are planning for the first sprint
- >     * How work will be divided between the team members
-## User Interface Specification
- > Include a navigation diagram for your screens and the layout of each of those screens as desribed below. For all the layouts/diagrams, you can use any tool such as PowerPoint or a drawing program. (Specification requirement is adapted from the User Interface Design Document Template of CMSC 345 at the University of Maryland Global Campus)
 
-### Navigation Diagram
-> Draw a diagram illustrating how the user can navigate from one screen to another. Here is an [example](https://creately.com/diagram/example/ikfqudv82/user-navigation-diagram-classic?r=v). It can be useful to label each symbol that represents a screen so that you can reference the screens in the next section or the rest of the document if necessary. Give a brief description of what the diagram represents.
+## Navigation Diagram
+ 
+ 
+ ![LibraryLink Navigation Diagram](https://i.imgur.com/jbaYgQS.png)
 
-### Screen Layouts
-> Include the layout of each of your screens. The layout should describe the screen’s major components such as menus and prompts for user inputs and expected output, or any graphical user interface components if applicable (e.g. buttons, text boxes, etc). Explain what is on the layout, and the purpose of each menu item, button, etc. If many screens share the same layout, start by describing the general layout and then list the screens that will be using that layout and the differences between each of them.
+## Screen Layouts
+Each screen will lead to a prompt with text-based options, where the user inputs commands or select from numbered options. In the navigation diagram, the black sub-boxes are the options for that screen and any additional black sub-boxes are output lines that prompt additional input, verification, or confirmation.
+For example, the Main Menu screen for a regular user would look like:
+>Main Menu: <br/>
+>- [1] View Account Status <br/>
+>- [2] Browse Book Catalog <br/>
+>- [3] Borrow/Renew a Book <br/>
+>- [4] View Recommendations <br/>
+>- [5] View Borrow List/History <br/>
+>- [6] Log Out <br/>
+>- Enter the number of your choice: <br/>
+
+Any operation fully completed will output text alerting the user that the operation was successful. For example, when registering for an account, the following line would output after a successful registration:
+>Registration: <br/>
+>- Username: [User Input] <br/>
+>- Password: [User Input] <br/>
+>- Confirm Password: [User Input] <br/>
+>- Registration successful! Your Library ID is [generated ID]. <br/>
 
 ## Class Diagram
- > Include a **class diagram(s)** for your project and a **description** of the diagram(s). Your class diagram(s) should include all the main classes you plan for the project. This should be in sufficient detail that another group could pick up the project this point and successfully complete it. Use proper UML notation (as discussed in the course slides).
+  Include a **class diagram(s)** for your project and a **description** of the diagram(s). Your class diagram(s) should include all the main classes you plan for the project. This should be in sufficient detail that another group could pick up the project this point and successfully complete it. Use proper UML notation (as discussed in the course slides).
  
  > ## Phase III
  > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on week 8 during lab time.
