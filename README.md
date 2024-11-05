@@ -26,7 +26,7 @@
 ## Input/Output
 All users will be prompted to log in or register for an account with a username/password. Each user after registering will also be given a Library ID that can also be used to login. Regular users will be prompted to an interface where they can view their account status, available book catalog, and also an option to borrow, renew, or return books. Administrator accounts will be prompted to a separate interface where they can view account status, book catalog with borrow status, and the option to add, update, or remove books from the book catalog. The book catalog will also take in an input that will sort the catalog by said input (i.e. Sort By Author, Genre, etc.).
 
- > ## Phase II
+
 ## User Interface Specification
  The program will run on a CLI, so users would navigate through menus and commands rather than graphical screens. Below is a brief navigation flow for the CLI. Admin screens are highlighted blue and regular user  screens are highlighted in light green.
 ## Navigation Diagram
