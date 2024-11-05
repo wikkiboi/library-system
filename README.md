@@ -53,7 +53,7 @@ Any operation fully completed will output text alerting the user that the operat
 >- Registration successful! Your Library ID is [generated ID]. <br/>
 
 ## Class Diagram
-![LibraryLink Class Diagram](https://i.imgur.com/5iq8J9K.png)
+![LibraryLink Class Diagram](https://i.imgur.com/TeKoFXr.png)
 > * User is the base class for all system users, including RegularUser and Administrator. 
 > * The RegularUser class inherits from the User class and adds functionality specific to library users. 
 > * The Administrator class also inherits from the User class and provides administrative privileges. 
