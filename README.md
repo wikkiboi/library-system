@@ -53,7 +53,16 @@ Any operation fully completed will output text alerting the user that the operat
 >- Registration successful! Your Library ID is [generated ID]. <br/>
 
 ## Class Diagram
-  Include a **class diagram(s)** for your project and a **description** of the diagram(s). Your class diagram(s) should include all the main classes you plan for the project. This should be in sufficient detail that another group could pick up the project this point and successfully complete it. Use proper UML notation (as discussed in the course slides).
+![LibraryLink Class Diagram](https://i.imgur.com/5iq8J9K.png)
+> * User is the base class for all system users, including RegularUser and Administrator. 
+> * The RegularUser class inherits from the User class and adds functionality specific to library users. 
+> * The Administrator class also inherits from the User class and provides administrative privileges. 
+>   * It includes permissions to manage the library catalog and manage user accounts. 
+>   * This class allows the user to interact with the library catalog and borrowing records. 
+> * The Book class represents the books in the library and contains a method to display book information. 
+> * The LibraryCatalog class contains all the books available in the library. 
+> * The BorrowRecord class represents a record of each borrowing by the user and allows tracking and management of borrowed books and the user's borrowing history. 
+>   * It also represents the user's borrowing history and allows tracking and management of borrowed books and the user's borrowing history.
  
  > ## Phase III
  > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on week 8 during lab time.
