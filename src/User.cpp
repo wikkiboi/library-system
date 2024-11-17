@@ -11,7 +11,7 @@ bool User::registerUser(const string& username, const string& password) {
         return false;
     }
 
-    ifstream readFile("data/users.csv");
+    ifstream readFile(this->filePath);
     string line;
     while (getline(readFile, line)) {
         istringstream stream(line);
@@ -42,9 +42,9 @@ bool User::registerUser(const string& username, const string& password) {
         return false;
     }
 
-    ofstream file("data/users.csv", ios::app);
+    ofstream file(this->filePath, ios::app);
     if (!file.is_open()) {
-        cerr << "Error opening users.csv\n";
+        cerr << "Error opening " << this->filePath << endl;
         return false;
     }
 
@@ -65,7 +65,7 @@ bool User::registerUser(const string& username, const string& password) {
 }
 
 bool User::loginUser(const string& username, const string& password) {
-    ifstream file("data/users.csv");
+    ifstream file(this->filePath);
     if (!file.is_open()) {
         cerr << "Error: Unable to open the file!" << endl;
         return false;
@@ -90,4 +90,8 @@ bool User::loginUser(const string& username, const string& password) {
 
     file.close();
     return false;
+}
+
+void User::setFilePath(const string& filePath) {
+    this->filePath = filePath;
 }

@@ -76,6 +76,7 @@ bool isTakenUsername(const string& username) {
             return false;
         }
     }
+    return true;
 }
 
 bool isValidPassword(const string& password) {
