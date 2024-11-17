@@ -18,6 +18,7 @@ void displayMainMenu() {
     cout << "\nLibraryLink\n";
     cout << "1. Register User\n";
     cout << "2. Login \n";
+    cout << "3. Quit \n";
     cout << "Enter your choice: ";
 }
 
@@ -97,7 +98,23 @@ bool isValidPassword(const string& password) {
 }
 
 void handleLogin() {
-    return;
+    cin.clear();
+    cin.ignore(10000, '\n');
+    string username, password;
+
+    cout << "Enter your username: ";
+    getline(cin, username);
+
+    cout << "Enter your password: ";
+    getline(cin, password);
+
+    User user;
+    if (user.loginUser(username, password)) {
+        cout << "Login Success!" << endl;
+        displayUserDashboard(user);
+    } else {
+        cout << "Invalid username or password!" << endl;
+    }
 }
 
 void displayUserDashboard(const User& user) {
@@ -105,13 +122,14 @@ void displayUserDashboard(const User& user) {
 }
 
 int main() {
-    while (true) {
+    bool quit = false;
+    while (!quit) {
         displayMainMenu();
 
         int choice;
         cin >> choice;
 
-        if (cin.fail() || choice != 1 && choice != 2) {
+        if (cin.fail() || choice != 1 && choice != 2 && choice != 3) {
             cin.clear();
             cin.ignore(10000, '\n');
             cout << "Invalid option. Please try again.\n";
@@ -122,6 +140,8 @@ int main() {
             handleRegister();
         } else if (choice == 2) {
             handleLogin();
+        } else if (choice == 3) {
+            quit = true;
         } 
     }
 
