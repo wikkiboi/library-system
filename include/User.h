@@ -12,7 +12,7 @@ class User {
     
     public:
         bool registerUser(const string& username, const string& password);
-
+        bool loginUser(const string& username, const string& password);
 
 };
 

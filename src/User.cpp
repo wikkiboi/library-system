@@ -63,3 +63,31 @@ bool User::registerUser(const string& username, const string& password) {
     cout << "Library ID: " << libraryId << endl;
     return true;
 }
+
+bool User::loginUser(const string& username, const string& password) {
+    ifstream file("data/users.csv");
+    if (!file.is_open()) {
+        cerr << "Error: Unable to open the file!" << endl;
+        return false;
+    }
+
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string fileUsername, filePassword, libraryId, userRole;
+
+        if (getline(ss, fileUsername, ',') &&
+            getline(ss, filePassword, ',') &&
+            getline(ss, libraryId, ',') &&
+            getline(ss, userRole, ',')) {
+            
+            if (fileUsername == username && filePassword == password) {
+                file.close();
+                return true;
+            }
+        }
+    }
+
+    file.close();
+    return false;
+}
