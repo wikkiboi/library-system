@@ -24,7 +24,7 @@ class Book {
         void setAvailability(bool availability);
         void setBookId();
         string generateUniqueBookId();
-        void saveToCSV() const;
+        bool saveToCSV() const;
 };
 
 #endif

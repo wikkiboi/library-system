@@ -72,7 +72,7 @@ string Book::generateUniqueBookId() {
     return newBookId;
 }
 
-void Book::saveToCSV() const {
+bool Book::saveToCSV() const {
     ofstream outFile(filePath, ios::app);
     if (outFile.is_open()) {
         outFile << bookId << "," << title << "," << author << "," << genre << ","
@@ -80,5 +80,8 @@ void Book::saveToCSV() const {
         outFile.close();
     } else {
         cerr << "Error: Unable to open books.csv file.\n";
+        return false;
     }
+
+    return true;
 }
