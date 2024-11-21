@@ -11,7 +11,7 @@ bool User::registerUser(const string& username, const string& password) {
         return false;
     }
 
-    ifstream readFile(this->filePath);
+    ifstream readFile("data/users.csv");
     string line;
     while (getline(readFile, line)) {
         istringstream stream(line);
@@ -42,9 +42,9 @@ bool User::registerUser(const string& username, const string& password) {
         return false;
     }
 
-    ofstream file(this->filePath, ios::app);
+    ofstream file("data/users.csv", ios::app);
     if (!file.is_open()) {
-        cerr << "Error opening " << this->filePath << endl;
+        cerr << "Error opening " << "data/users.csv" << endl;
         return false;
     }
 
@@ -65,7 +65,7 @@ bool User::registerUser(const string& username, const string& password) {
 }
 
 bool User::loginUser(const string& username, const string& password) {
-    ifstream file(this->filePath);
+    ifstream file("data/users.csv");
     if (!file.is_open()) {
         cerr << "Error: Unable to open the file!" << endl;
         return false;
@@ -90,37 +90,4 @@ bool User::loginUser(const string& username, const string& password) {
 
     file.close();
     return false;
-}
-
-void User::setFilePath(const string& filePath) {
-    this->filePath = filePath;
-}
-
-
-bool User::addBook(const string& title, const string& author, const string& genre) {
-    if (title.empty() || author.empty() || genre.empty()) {
-        cerr << "Error: Title, author, and genre must not be empty!" << endl;
-        return false;
-    }
-
-    ofstream file(this->filePath, ios::app);
-    if (!file.is_open()) {
-        cerr << "Error: Unable to open the file!" << endl;
-        return false;
-    }
-
-    // Generate a unique book ID using a random number generator.
-    static random_device rd;
-    static mt19937 gen(rd());
-    static uniform_int_distribution<int> dist(10000, 99999);
-
-    int bookId = dist(gen);
-
-    // Write the book details to the file.
-    file << bookId << "," << title << "," << author << "," << genre << "\n";
-    file.close();
-
-    cout << "Book added successfully!" << endl;
-    cout << "Book ID: " << bookId << endl;
-    return true;
 }

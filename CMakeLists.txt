@@ -7,7 +7,14 @@ ADD_SUBDIRECTORY(tests/googletest)
 file(GLOB TEST_SOURCES "tests/*.cpp")
 file(GLOB SRC_SOURCES "src/*.cpp")
 
-add_executable(run_tests ${TEST_SOURCES} "src/User.cpp")
+add_executable(run_tests ${TEST_SOURCES} 
+"src/User.cpp" 
+"src/Administrator.cpp"
+"src/Book.cpp"
+"src/BorrowRecord.cpp"
+"src/LibraryCatalog.cpp"
+"src/RegularUser.cpp"
+)
 
 add_executable(run_main ${SRC_SOURCES})
 
