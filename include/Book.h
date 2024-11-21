@@ -15,8 +15,16 @@ class Book {
         string filePath = "data/books.csv";
 
     public:
-        void displayBookInfo();
-    
+        Book();
+        void displayBookInfo() const;
+        void addTitle(const string& title);
+        void addAuthor(const string& author);
+        void addGenre(const string& genre);
+        void addSubGenre(const string& subGenre);
+        void setAvailability(bool availability);
+        void setBookId();
+        string generateUniqueBookId();
+        void saveToCSV() const;
 };
 
 #endif
