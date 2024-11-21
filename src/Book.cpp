@@ -40,7 +40,7 @@ void Book::setBookId() {
     this->bookId = generateUniqueBookId();
 }
 
-string Book::generateUniqueBookId() {
+string Book::generateUniqueBookId() const {
     static random_device rd;
     static mt19937 gen(rd());
     static uniform_int_distribution<int> dist(10000, 99999);
@@ -89,6 +89,42 @@ string Book::detailsToString() const {
     return bookId + "," + title + "," + author + "," + genre + "," + subGenre + "," + (isAvailable ? "1" : "0");
 }
 
+Book Book::getBookFromCatalog(const string& bookId) const {
+    ifstream inFile(filePath);
+    string line;
+    Book foundBook;
+
+    while (getline(inFile, line)) {
+        size_t pos = line.find(',');
+        string currentBookId = line.substr(0, pos);
+
+        if (currentBookId == bookId) {
+            size_t nextPos = line.find(',', pos + 1);
+            foundBook.bookId = currentBookId;
+            foundBook.title = line.substr(pos + 1, nextPos - pos - 1);
+
+            pos = nextPos;
+            nextPos = line.find(',', pos + 1);
+            foundBook.author = line.substr(pos + 1, nextPos - pos - 1);
+
+            pos = nextPos;
+            nextPos = line.find(',', pos + 1);
+            foundBook.genre = line.substr(pos + 1, nextPos - pos - 1);
+
+            pos = nextPos;
+            nextPos = line.find(',', pos + 1);
+            foundBook.subGenre = line.substr(pos + 1, nextPos - pos - 1);
+
+            foundBook.isAvailable = line.substr(nextPos + 1) == "1";  // '1' means available
+
+            break;
+        }
+    }
+
+    inFile.close();
+    return (foundBook.bookId == bookId) ? foundBook : Book();
+}
+
 bool Book::updateBookCatalog(vector<Book>& catalog) const {
     ofstream outFile(filePath);
     for (const auto& book: catalog) {
@@ -98,16 +134,16 @@ bool Book::updateBookCatalog(vector<Book>& catalog) const {
     return true;
 }
 
-bool Book::updateBookDetails(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre) const {
+bool Book::updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre) const {
     Book myBook;
     vector<Book> catalog = myBook.loadBookCatalog();
     
     for (auto& book: catalog) {
-        if (book.bookId == bookId) {
-            book.setTitle(title);
-            book.setAuthor(author);
-            book.setGenre(genre);
-            book.setSubGenre(subGenre);
+        if (book.bookId == this->bookId) {
+            if (!title.empty()) book.setTitle(title);
+            if (!author.empty()) book.setAuthor(author);
+            if (!genre.empty()) book.setGenre(genre);
+            if (!subGenre.empty()) book.setSubGenre(subGenre);
             return updateBookCatalog(catalog);
         }
     }

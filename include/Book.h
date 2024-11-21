@@ -17,6 +17,8 @@ class Book {
     public:
         Book();
         void displayBookInfo() const;
+    
+    private:
         void setTitle(const string& title);
         void setAuthor(const string& author);
         void setGenre(const string& genre);
@@ -24,11 +26,14 @@ class Book {
         void setAvailability(bool availability);
         void setBookId();
         string detailsToString() const;
-        string generateUniqueBookId();
+        string generateUniqueBookId() const;
+        Book getBookFromCatalog(const string& bookId) const;
         vector<Book> loadBookCatalog();
         bool addToBookCatalog() const;
         bool updateBookCatalog(vector<Book>& catalog) const;
-        bool updateBookDetails(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre) const;
+        bool updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre) const;
+
+        friend class Admin;
 };
 
 #endif
