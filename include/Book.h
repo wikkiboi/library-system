@@ -31,7 +31,8 @@ class Book {
         vector<Book> loadBookCatalog();
         bool addToBookCatalog() const;
         bool updateBookCatalog(vector<Book>& catalog) const;
-        bool updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre) const;
+        bool updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre);
+        bool deleteBookFromCatalog(const string& bookId);
 
         friend class Admin;
 };

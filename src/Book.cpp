@@ -134,9 +134,8 @@ bool Book::updateBookCatalog(vector<Book>& catalog) const {
     return true;
 }
 
-bool Book::updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre) const {
-    Book myBook;
-    vector<Book> catalog = myBook.loadBookCatalog();
+bool Book::updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre) {
+    vector<Book> catalog = loadBookCatalog();
     
     for (auto& book: catalog) {
         if (book.bookId == this->bookId) {
@@ -146,6 +145,22 @@ bool Book::updateBookDetails(const string& title, const string& author, const st
             if (!subGenre.empty()) book.setSubGenre(subGenre);
             return updateBookCatalog(catalog);
         }
+    }
+
+    return false;
+}
+
+bool Book::deleteBookFromCatalog(const string& bookId) {
+    vector<Book> catalog = loadBookCatalog();
+
+    auto it = remove_if(catalog.begin(), catalog.end(), [&](const Book& bookToDelete) {
+        return bookToDelete.bookId == bookId;
+    });
+
+    if (it != catalog.end()) {
+        catalog.erase(it, catalog.end());
+        updateBookCatalog(catalog);
+        return true;
     }
 
     return false;
