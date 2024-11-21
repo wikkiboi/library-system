@@ -21,16 +21,16 @@ void Book::displayBookInfo() const {
 }
 
 // Methods to add or modify book details
-void Book::addTitle(const string& title) { 
+void Book::setTitle(const string& title) { 
     this->title = title;
 }
-void Book::addAuthor(const string& author) { 
+void Book::setAuthor(const string& author) { 
     this->author = author;
 }
-void Book::addGenre(const string& genre) { 
+void Book::setGenre(const string& genre) { 
     this->genre = genre; 
 }
-void Book::addSubGenre(const string& subGenre) {
+void Book::setSubGenre(const string& subGenre) {
     this->subGenre = subGenre;
 }
 void Book::setAvailability(bool availability) {
@@ -72,11 +72,10 @@ string Book::generateUniqueBookId() {
     return newBookId;
 }
 
-bool Book::saveToCSV() const {
+bool Book::addToBookCatalog() const {
     ofstream outFile(filePath, ios::app);
     if (outFile.is_open()) {
-        outFile << bookId << "," << title << "," << author << "," << genre << ","
-                << subGenre << "," << (isAvailable ? "1" : "0") << "\n";
+        outFile << detailsToString() << "\n";
         outFile.close();
     } else {
         cerr << "Error: Unable to open books.csv file.\n";
@@ -84,4 +83,58 @@ bool Book::saveToCSV() const {
     }
 
     return true;
+}
+
+string Book::detailsToString() const {
+    return bookId + "," + title + "," + author + "," + genre + "," + subGenre + "," + (isAvailable ? "1" : "0");
+}
+
+bool Book::updateBookCatalog(vector<Book>& catalog) const {
+    ofstream outFile(filePath);
+    for (const auto& book: catalog) {
+        outFile << book.detailsToString() << endl;
+    }
+
+    return true;
+}
+
+bool Book::updateBookDetails(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre) const {
+    Book myBook;
+    vector<Book> catalog = myBook.loadBookCatalog();
+    
+    for (auto& book: catalog) {
+        if (book.bookId == bookId) {
+            book.setTitle(title);
+            book.setAuthor(author);
+            book.setGenre(genre);
+            book.setSubGenre(subGenre);
+            return updateBookCatalog(catalog);
+        }
+    }
+
+    return false;
+}
+
+vector<Book> Book::loadBookCatalog() {
+    ifstream inFile(filePath);
+    string line;
+    vector<Book> books;
+
+    while (getline(inFile, line)) {
+        Book book;
+        stringstream ss(line);
+        string value;
+
+        getline(ss, book.bookId, ',');
+        getline(ss, book.title, ',');
+        getline(ss, book.author, ',');
+        getline(ss, book.genre, ',');
+        getline(ss, book.subGenre, ',');
+        getline(ss, value, ',');
+        book.isAvailable = (value == "1");
+
+        books.push_back(book);
+    }
+
+    return books;
 }

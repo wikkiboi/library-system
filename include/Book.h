@@ -1,6 +1,6 @@
 #ifndef BOOK_H
 #define BOOK_H
-
+#include <vector>
 #include <string>
 using namespace std;
 
@@ -17,14 +17,18 @@ class Book {
     public:
         Book();
         void displayBookInfo() const;
-        void addTitle(const string& title);
-        void addAuthor(const string& author);
-        void addGenre(const string& genre);
-        void addSubGenre(const string& subGenre);
+        void setTitle(const string& title);
+        void setAuthor(const string& author);
+        void setGenre(const string& genre);
+        void setSubGenre(const string& subGenre);
         void setAvailability(bool availability);
         void setBookId();
+        string detailsToString() const;
         string generateUniqueBookId();
-        bool saveToCSV() const;
+        vector<Book> loadBookCatalog();
+        bool addToBookCatalog() const;
+        bool updateBookCatalog(vector<Book>& catalog) const;
+        bool updateBookDetails(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre) const;
 };
 
 #endif
