@@ -18,7 +18,8 @@ void displayMainMenu() {
     cout << "\nLibraryLink\n";
     cout << "1. Register User\n";
     cout << "2. Login \n";
-    cout << "3. Quit \n";
+    cout << "3. View Book Catalog (with Sorting)\n";
+    cout << "4. Quit \n";
     cout << "Enter your choice: ";
 }
 
@@ -122,6 +123,36 @@ void displayUserDashboard(const User& user) {
     return;
 }
 
+void displayCatalog() {
+    Book book;
+    vector<Book> catalog = book.loadBookCatalog();
+
+    cout << "Choose a sorting method:\n";
+    cout << "1. Sort by Author\n";
+    cout << "2. Sort by Genre\n";
+    cout << "Enter your choice: ";
+    int sortChoice;
+    cin >> sortChoice;
+
+    if (cin.fail() || (sortChoice != 1 && sortChoice != 2)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid option. Showing unsorted catalog.\n";
+    } else {
+        if (sortChoice == 1) {
+            catalog = Book::sortCatalogByAuthor(catalog);
+        } else if (sortChoice == 2) {
+            catalog = Book::sortCatalogByGenre(catalog);
+        }
+    }
+
+    cout << "\n--- Book Catalog ---\n";
+    for (const auto& book : catalog) {
+        book.displayBookInfo();
+        cout << "\n";
+    }
+}
+
 int main() {
     bool quit = false;
     while (!quit) {
@@ -142,6 +173,8 @@ int main() {
         } else if (choice == 2) {
             handleLogin();
         } else if (choice == 3) {
+    	    displayCatalog();
+	}else if (choice == 4) {
             quit = true;
         } 
     }

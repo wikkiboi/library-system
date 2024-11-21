@@ -189,3 +189,19 @@ vector<Book> Book::loadBookCatalog() {
 
     return books;
 }
+
+vector<Book> Book::sortCatalogByAuthor(const vector<Book>& catalog) {
+    vector<Book> sortedCatalog = catalog;
+    sort(sortedCatalog.begin(), sortedCatalog.end(), [](const Book& a, const Book& b) {
+        return a.author < b.author;
+    });
+    return sortedCatalog;
+}
+
+vector<Book> Book::sortCatalogByGenre(const vector<Book>& catalog) {
+    vector<Book> sortedCatalog = catalog;
+    sort(sortedCatalog.begin(), sortedCatalog.end(), [](const Book& a, const Book& b) {
+        return a.genre < b.genre;
+    });
+    return sortedCatalog;
+}
