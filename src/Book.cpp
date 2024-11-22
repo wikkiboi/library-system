@@ -6,10 +6,13 @@
 #include <vector>
 #include <algorithm>
 #include "Book.h"
+#include "Catalog.h"
 
 using namespace std;
 
-Book::Book() {};
+Book::Book() {
+    this->bookId = "-1";
+};
     // Display Book Info
 void Book::displayBookInfo() const {
     cout << "Book ID: " << bookId << "\n"
@@ -38,6 +41,30 @@ void Book::setAvailability(bool availability) {
 }
 void Book::setBookId() {
     this->bookId = generateUniqueBookId();
+}
+void Book::setBookId(const string& bookId) {
+    this->bookId = bookId;
+}
+
+bool Book::getAvailability() const {
+    return this->isAvailable;
+}
+
+string Book::getBookId() const {
+    return this->bookId;
+}
+
+string Book::getTitle() const {
+    return this->title;
+}
+string Book::getAuthor() const{
+    return this->author;
+}
+string Book::getGenre() const{
+    return this->genre;
+}
+string Book::getSubGenre() const{
+    return this->subGenre;
 }
 
 string Book::generateUniqueBookId() const {
@@ -89,53 +116,9 @@ string Book::detailsToString() const {
     return bookId + "," + title + "," + author + "," + genre + "," + subGenre + "," + (isAvailable ? "1" : "0");
 }
 
-Book Book::getBookFromCatalog(const string& bookId) const {
-    ifstream inFile(filePath);
-    string line;
-    Book foundBook;
-
-    while (getline(inFile, line)) {
-        size_t pos = line.find(',');
-        string currentBookId = line.substr(0, pos);
-
-        if (currentBookId == bookId) {
-            size_t nextPos = line.find(',', pos + 1);
-            foundBook.bookId = currentBookId;
-            foundBook.title = line.substr(pos + 1, nextPos - pos - 1);
-
-            pos = nextPos;
-            nextPos = line.find(',', pos + 1);
-            foundBook.author = line.substr(pos + 1, nextPos - pos - 1);
-
-            pos = nextPos;
-            nextPos = line.find(',', pos + 1);
-            foundBook.genre = line.substr(pos + 1, nextPos - pos - 1);
-
-            pos = nextPos;
-            nextPos = line.find(',', pos + 1);
-            foundBook.subGenre = line.substr(pos + 1, nextPos - pos - 1);
-
-            foundBook.isAvailable = line.substr(nextPos + 1) == "1";  // '1' means available
-
-            break;
-        }
-    }
-
-    inFile.close();
-    return (foundBook.bookId == bookId) ? foundBook : Book();
-}
-
-bool Book::updateBookCatalog(vector<Book>& catalog) const {
-    ofstream outFile(filePath);
-    for (const auto& book: catalog) {
-        outFile << book.detailsToString() << endl;
-    }
-
-    return true;
-}
-
 bool Book::updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre) {
-    vector<Book> catalog = loadBookCatalog();
+    Catalog library;
+    vector<Book> catalog = library.loadBookCatalog();
     
     for (auto& book: catalog) {
         if (book.bookId == this->bookId) {
@@ -143,65 +126,9 @@ bool Book::updateBookDetails(const string& title, const string& author, const st
             if (!author.empty()) book.setAuthor(author);
             if (!genre.empty()) book.setGenre(genre);
             if (!subGenre.empty()) book.setSubGenre(subGenre);
-            return updateBookCatalog(catalog);
+            return library.updateBookCatalog(catalog);
         }
     }
 
     return false;
-}
-
-bool Book::deleteBookFromCatalog(const string& bookId) {
-    vector<Book> catalog = loadBookCatalog();
-
-    auto it = remove_if(catalog.begin(), catalog.end(), [&](const Book& bookToDelete) {
-        return bookToDelete.bookId == bookId;
-    });
-
-    if (it != catalog.end()) {
-        catalog.erase(it, catalog.end());
-        updateBookCatalog(catalog);
-        return true;
-    }
-
-    return false;
-}
-
-vector<Book> Book::loadBookCatalog() {
-    ifstream inFile(filePath);
-    string line;
-    vector<Book> books;
-
-    while (getline(inFile, line)) {
-        Book book;
-        stringstream ss(line);
-        string value;
-
-        getline(ss, book.bookId, ',');
-        getline(ss, book.title, ',');
-        getline(ss, book.author, ',');
-        getline(ss, book.genre, ',');
-        getline(ss, book.subGenre, ',');
-        getline(ss, value, ',');
-        book.isAvailable = (value == "1");
-
-        books.push_back(book);
-    }
-
-    return books;
-}
-
-vector<Book> Book::sortCatalogByAuthor(const vector<Book>& catalog) {
-    vector<Book> sortedCatalog = catalog;
-    sort(sortedCatalog.begin(), sortedCatalog.end(), [](const Book& a, const Book& b) {
-        return a.author < b.author;
-    });
-    return sortedCatalog;
-}
-
-vector<Book> Book::sortCatalogByGenre(const vector<Book>& catalog) {
-    vector<Book> sortedCatalog = catalog;
-    sort(sortedCatalog.begin(), sortedCatalog.end(), [](const Book& a, const Book& b) {
-        return a.genre < b.genre;
-    });
-    return sortedCatalog;
 }

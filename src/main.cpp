@@ -3,16 +3,23 @@
 #include <sstream>
 #include <string>
 #include "User.h"
+#include "Admin.h"
+#include "Client.h"
+#include "Borrow.h"
+#include "Catalog.h"
+#include "Book.h"
 
 using namespace std;
 
 void displayMainMenu();
-void handleRegister();
+void handleRegister(Client& client);
 bool isValidUsername(const string& username);
 bool isTakenUsername(const string& username);
 bool isValidPassword(const string& password);
-void handleLogin();
-void displayUserDashboard(const User& user);
+void handleLogin(Client& client);
+void displayCatalog(Client &client);
+void displayBorrow(Client &client);
+void displayUserDashboard(const Client& client);
 
 void displayMainMenu() {
     cout << "\nLibraryLink\n";
@@ -23,7 +30,7 @@ void displayMainMenu() {
     cout << "Enter your choice: ";
 }
 
-void handleRegister() {
+void handleRegister(Client& client) {
     cin.clear();
     cin.ignore(10000, '\n');
     string username, password;
@@ -53,10 +60,9 @@ void handleRegister() {
 
     } while (!isValidPassword(password));
 
-    User user;
-    if (user.registerUser(username, password)) {
+    if (client.registerUser(username, password)) {
         cout << "Registration successful!\n";
-        displayUserDashboard(user);
+        displayUserDashboard(client);
     } else {
         cout << "Registration failed. Please try again later.\n";
     }
@@ -99,7 +105,7 @@ bool isValidPassword(const string& password) {
     return hasUpper && hasLower && hasDigit;
 }
 
-void handleLogin() {
+void handleLogin(Client& client) {
     cin.clear();
     cin.ignore(10000, '\n');
     string username, password;
@@ -110,22 +116,26 @@ void handleLogin() {
     cout << "Enter your password: ";
     getline(cin, password);
 
-    User user;
-    if (user.loginUser(username, password)) {
+    if (client.loginUser(username, password)) {
         cout << "Login Success!" << endl;
-        displayUserDashboard(user);
+        displayUserDashboard(client);
     } else {
         cout << "Invalid username or password!" << endl;
     }
 }
 
-void displayUserDashboard(const User& user) {
+void displayUserDashboard(const Client& client) {
     return;
 }
 
-void displayCatalog() {
-    Book book;
-    vector<Book> catalog = book.loadBookCatalog();
+void displayCatalog(Client& client) {
+    if (!client.getLoggedIn()) {
+        cout << "Please log in or register before viewing\n";
+        return;
+    }
+
+    Catalog catalog;
+    vector<Book> books = catalog.loadBookCatalog();
 
     cout << "Choose a sorting method:\n";
     cout << "1. Sort by Author\n";
@@ -140,28 +150,75 @@ void displayCatalog() {
         cout << "Invalid option. Showing unsorted catalog.\n";
     } else {
         if (sortChoice == 1) {
-            catalog = Book::sortCatalogByAuthor(catalog);
+            books = catalog.sortCatalogByAuthor(books);
         } else if (sortChoice == 2) {
-            catalog = Book::sortCatalogByGenre(catalog);
+            books = catalog.sortCatalogByGenre(books);
         }
     }
 
     cout << "\n--- Book Catalog ---\n";
-    for (const auto& book : catalog) {
+    for (const auto& book : books) {
         book.displayBookInfo();
         cout << "\n";
     }
+
+    cout << "Would you like to borrow a book?\n";
+    cout << "1. Yes\n";
+    cout << "2. No\n";
+    cout << "Enter your choice: ";
+    int input;
+    cin >> input;
+
+    if (cin.fail() || (input != 1 && input != 2)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid option. Quitting.\n";
+        return;
+    } else {
+        if (input == 1) {
+            displayBorrow(client);
+        } else if (input == 2) {
+            return;
+        }
+    }
+}
+
+void displayBorrow(Client &client) {
+    Catalog catalog;
+    cout << "Choose a book ID you want to borrow: ";
+    string bookId;
+    cin >> bookId;
+
+    if (cin.fail()) {
+        cout << "Invalid input\n";
+        displayBorrow(client);
+        return;
+    }
+
+    Book borrowedBook = catalog.getBookFromCatalog(bookId);
+    if (borrowedBook.getBookId() != "-1") {
+        Borrow borrow = client.borrowBook(borrowedBook);
+        cout << "You have borrowed \"" << borrowedBook.getTitle() << "\" by " << borrowedBook.getAuthor() << "!\n";
+        cout << "Please return this book by " << borrow.getDueDate() << "\n";
+    } else {
+        cout << "Invalid book ID:\n";
+    }
+}
+
+void generateBooks() {
+    Admin admin;
 }
 
 int main() {
     bool quit = false;
+    Client client;
     while (!quit) {
         displayMainMenu();
 
         int choice;
         cin >> choice;
 
-        if (cin.fail() || choice != 1 && choice != 2 && choice != 3) {
+        if (cin.fail() || choice < 0 && choice > 4) {
             cin.clear();
             cin.ignore(10000, '\n');
             cout << "Invalid option. Please try again.\n";
@@ -169,12 +226,12 @@ int main() {
         }
 
         if (choice == 1) {
-            handleRegister();
+            handleRegister(client);
         } else if (choice == 2) {
-            handleLogin();
+            handleLogin(client);
         } else if (choice == 3) {
-    	    displayCatalog();
-	}else if (choice == 4) {
+    	    displayCatalog(client);
+	    }else if (choice == 4) {
             quit = true;
         } 
     }

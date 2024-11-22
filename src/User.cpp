@@ -11,7 +11,7 @@ bool User::registerUser(const string& username, const string& password) {
         return false;
     }
 
-    ifstream readFile(this->filePath);
+    ifstream readFile("data/users.csv");
     string line;
     while (getline(readFile, line)) {
         istringstream stream(line);
@@ -42,9 +42,9 @@ bool User::registerUser(const string& username, const string& password) {
         return false;
     }
 
-    ofstream file(this->filePath, ios::app);
+    ofstream file("data/users.csv", ios::app);
     if (!file.is_open()) {
-        cerr << "Error opening " << this->filePath << endl;
+        cerr << "Error opening " << "data/users.csv" << endl;
         return false;
     }
 
@@ -60,12 +60,13 @@ bool User::registerUser(const string& username, const string& password) {
 
     file << username << "," << password << "," << libraryId << ",user\n";
     file.close();
+    this->loggedIn = true;
     cout << "Library ID: " << libraryId << endl;
     return true;
 }
 
 bool User::loginUser(const string& username, const string& password) {
-    ifstream file(this->filePath);
+    ifstream file("data/users.csv");
     if (!file.is_open()) {
         cerr << "Error: Unable to open the file!" << endl;
         return false;
@@ -82,6 +83,10 @@ bool User::loginUser(const string& username, const string& password) {
             getline(ss, userRole, ',')) {
             
             if (fileUsername == username && filePassword == password) {
+                this->username = fileUsername;
+                this->password = filePassword;
+                this->libraryId = libraryId;
+                this->loggedIn = true;
                 file.close();
                 return true;
             }
@@ -92,6 +97,6 @@ bool User::loginUser(const string& username, const string& password) {
     return false;
 }
 
-void User::setFilePath(const string& filePath) {
-    this->filePath = filePath;
+bool User::getLoggedIn() {
+    return this->loggedIn;
 }

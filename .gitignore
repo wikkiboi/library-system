@@ -6,3 +6,4 @@ lib/
 CMakeFiles/
 
 run_tests
+run_main
