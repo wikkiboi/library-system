@@ -64,27 +64,24 @@ Any operation fully completed will output text alerting the user that the operat
  * The BorrowRecord class represents a record of each borrowing by the user and allows tracking and management of borrowed books and the user's borrowing history. 
    * It also represents the user's borrowing history and allows tracking and management of borrowed books and the user's borrowing history.
  
- > ## Phase III
- > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on week 8 during lab time.
- 
- > BEFORE the meeting you should do the following:
- > * Update your class diagram from Phase II to include any feedback you received from your TA/grader.
- > * Considering the SOLID design principles, reflect back on your class diagram and think about how you can use the SOLID principles to improve your design. You should then update the README.md file by adding the following:
- >   * A new class diagram incorporating your changes after considering the SOLID principles.
- >   * For each update in your class diagram, you must explain in 3-4 sentences:
- >     * What SOLID principle(s) did you apply?
- >     * How did you apply it? i.e. describe the change.
- >     * How did this change help you write better code?
- > * Perform a new sprint plan like you did in Phase II.
- > * Make sure that your README file (and Project board) are up-to-date reflecting the current status of your project and the most recent class diagram. Previous versions of the README file should still be visible through your commit history.
->  * Each team member should also submit the Individual Contributions Form on Canvas for phase III. In this form, you need to fill in the names of all team members, the percentage of work contributed by each member for phase III, and a description of their contributions. Remember that each team member should submit the form individually.
- 
-> During the meeting with your reader you will discuss: 
- > * How effective your last sprint was (each member should talk about what they did)
- > * Any tasks that did not get completed last sprint, and how you took them into consideration for this sprint
- > * Any bugs you've identified and created issues for during the sprint. Do you plan on fixing them in the next sprint or are they lower priority?
- > * What tasks you are planning for this next sprint.
-
+## Updated Class Diagram
+![LibraryLink Class Diagram](https://i.imgur.com/42uroKY.png)
+ * New Abstract DisplayScreen Class
+    * Open-Closed Principle
+    * We added an abstract DisplayScreen class with a render() function and different screens that inherit from it, such as UserScreen, AdminScreen, and CatalogScreen.
+    * This allows new screen types to be added without modifying the DisplayScreen code. It makes the code more reusable and open to extension without touching the existing code.
+ * New Catalog Class
+    * Single Responsibility, Interface Segregation Principle
+    * The Catalog class is solely responsible for managing the book catalog stored in the books.csv file. We moved the logic of modifying the CSV file from LibraryCatalog to the Catalog class.
+    * This reduces the responsibility of the LibraryCatalog class. LibraryCatalog will handle the runtime operations and displaying details to the screen, while Catalog will handle the data storage logic. This also makes it easier to maintain and test as any modifications to file operations do not affect LibraryCatalog.
+ * Getter/Setter Functions in Book class
+   * Single Responsibility Principle (Encapsulation)
+   * We added a getter and setter function for every member variable in the Book class.
+   * This protects the internal state of the Book class and prevents direct access to the attributes. It also increases flexibility by allowing the addition of validation or formatting logic in between.
+* Friend relationship between Admin & Catalog Class
+   * Liskov Substitution Principle
+   * We add a friend relationship to ensure that Admin has exclusive access to the private methods in Catalog, which modify the book catalog in the books.csv file.
+   * By restricting access to only the Admin class, it protects the integrity of the Catalog class. This also clearly defines the Admin class, in which it is responsible for modifying the book catalog. 
  
  > ## Final deliverable
  > All group members will give a demo to the reader during lab time. ou should schedule your demo on Calendly with the same reader who took your second scrum meeting. The reader will check the demo and the project GitHub repository and ask a few questions to all the team members. 
