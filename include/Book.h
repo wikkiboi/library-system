@@ -11,19 +11,19 @@ class Book {
         string author;
         string genre;
         string subGenre;
+        int year;
         bool isAvailable;
-        string filePath = "data/books.csv";
 
     public:
         Book();
         void displayBookInfo() const;
-    
-    //private:
+
         void setTitle(const string& title);
         void setAuthor(const string& author);
         void setGenre(const string& genre);
         void setSubGenre(const string& subGenre);
-        void setAvailability(bool availability);
+        void setAvailability(const bool& availability);
+        void setYear(const int& year);
         void setBookId();
         void setBookId(const string& bookId);
 
@@ -33,12 +33,13 @@ class Book {
         string getAuthor() const;
         string getGenre() const;
         string getSubGenre() const;
+        int getYear() const;
 
         bool addToBookCatalog() const;
         string detailsToString() const;
         string generateUniqueBookId() const;
 
-        bool updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre);
+        bool updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable);
 
         friend class Admin;
 };

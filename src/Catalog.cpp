@@ -9,7 +9,7 @@
 #include "Catalog.h"
 
 Book Catalog::getBookFromCatalog(const string& bookId) const {
-    ifstream inFile(filePath);
+    ifstream inFile("data/books.csv");
     string line;
     Book foundBook;
 
@@ -34,6 +34,10 @@ Book Catalog::getBookFromCatalog(const string& bookId) const {
             nextPos = line.find(',', pos + 1);
             foundBook.setSubGenre(line.substr(pos + 1, nextPos - pos - 1));
 
+            pos = nextPos;
+            nextPos = line.find(',', pos + 1);
+            foundBook.setYear(stoi(line.substr(pos + 1, nextPos - pos - 1)));
+
             foundBook.setAvailability(line.substr(nextPos + 1) == "1");  // '1' means available
 
             break;
@@ -45,7 +49,7 @@ Book Catalog::getBookFromCatalog(const string& bookId) const {
 }
 
 bool Catalog::updateBookCatalog(vector<Book>& catalog) const {
-    ofstream outFile(filePath);
+    ofstream outFile("data/books.csv");
     for (const auto& book: catalog) {
         outFile << book.detailsToString() << endl;
     }
@@ -70,7 +74,7 @@ bool Catalog::deleteBookFromCatalog(const string& bookId) {
 }
 
 vector<Book> Catalog::loadBookCatalog() {
-    ifstream inFile(filePath);
+    ifstream inFile("data/books.csv");
     string line;
     vector<Book> books;
 
@@ -84,12 +88,14 @@ vector<Book> Catalog::loadBookCatalog() {
         string author;
         string genre;
         string subGenre;
+        string yearString;
 
         getline(ss, bookId, ',');
         getline(ss, title, ',');
         getline(ss, author, ',');
         getline(ss, genre, ',');
         getline(ss, subGenre, ',');
+        getline(ss, yearString, ',');
         getline(ss, value, ',');
         
         book.setBookId(bookId);
@@ -97,6 +103,7 @@ vector<Book> Catalog::loadBookCatalog() {
         book.setAuthor(author);
         book.setGenre(genre);
         book.setSubGenre(subGenre);
+        book.setYear(stoi(yearString));
         book.setAvailability(value == "1");
 
         books.push_back(book);
@@ -117,6 +124,14 @@ vector<Book> Catalog::sortCatalogByGenre(const vector<Book>& catalog) {
     vector<Book> sortedCatalog = catalog;
     sort(sortedCatalog.begin(), sortedCatalog.end(), [](const Book& a, const Book& b) {
         return a.getGenre() < b.getGenre();
+    });
+    return sortedCatalog;
+}
+
+vector<Book> Catalog::sortCatalogByYear(const vector<Book>& catalog) {
+    vector<Book> sortedCatalog = catalog;
+    sort(sortedCatalog.begin(), sortedCatalog.end(), [](const Book& a, const Book& b) {
+        return a.getYear() < b.getYear();
     });
     return sortedCatalog;
 }

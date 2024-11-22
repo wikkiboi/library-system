@@ -7,16 +7,15 @@ using namespace std;
 
 class Catalog {
     private:
-        string filePath = "data/books.csv";
-
+        vector<Book> books;
     public:
         Book getBookFromCatalog(const string& bookId) const;
         vector<Book> loadBookCatalog();
         bool updateBookCatalog(vector<Book>& catalog) const;
-        bool updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre);
         bool deleteBookFromCatalog(const string& bookId);
 	    static vector<Book> sortCatalogByAuthor(const vector<Book>& catalog);
 	    static vector<Book> sortCatalogByGenre(const vector<Book>& catalog);
+        static vector<Book> sortCatalogByYear(const vector<Book>& catalog);
         friend class Admin;
 };
 
