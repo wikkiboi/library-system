@@ -140,11 +140,12 @@ void displayCatalog(Client& client) {
     cout << "Choose a sorting method:\n";
     cout << "1. Sort by Author\n";
     cout << "2. Sort by Genre\n";
+    cout << "3. Sort by Year Published\n";
     cout << "Enter your choice: ";
     int sortChoice;
     cin >> sortChoice;
 
-    if (cin.fail() || (sortChoice != 1 && sortChoice != 2)) {
+    if (cin.fail() || (sortChoice != 1 && sortChoice != 2 && sortChoice != 3)) {
         cin.clear();
         cin.ignore(10000, '\n');
         cout << "Invalid option. Showing unsorted catalog.\n";
@@ -153,6 +154,8 @@ void displayCatalog(Client& client) {
             books = catalog.sortCatalogByAuthor(books);
         } else if (sortChoice == 2) {
             books = catalog.sortCatalogByGenre(books);
+        } else if (sortChoice == 3) {
+            books = catalog.sortCatalogByYear(books);
         }
     }
 

@@ -20,6 +20,7 @@ void Book::displayBookInfo() const {
             << "Author: " << author << "\n"
             << "Genre: " << genre << "\n"
             << "Sub-Genre: " << subGenre << "\n"
+            << "Year Published: " << year << "\n"
             << "Available: " << (isAvailable ? "Yes" : "No") << "\n";
 }
 
@@ -36,8 +37,11 @@ void Book::setGenre(const string& genre) {
 void Book::setSubGenre(const string& subGenre) {
     this->subGenre = subGenre;
 }
-void Book::setAvailability(bool availability) {
+void Book::setAvailability(const bool& availability) {
     this->isAvailable = availability;             
+}
+void Book::setYear(const int& year) {
+    this->year = year;             
 }
 void Book::setBookId() {
     this->bookId = generateUniqueBookId();
@@ -66,6 +70,9 @@ string Book::getGenre() const{
 string Book::getSubGenre() const{
     return this->subGenre;
 }
+int Book::getYear() const{
+    return this->year;
+}
 
 string Book::generateUniqueBookId() const {
     static random_device rd;
@@ -73,7 +80,7 @@ string Book::generateUniqueBookId() const {
     static uniform_int_distribution<int> dist(10000, 99999);
 
     vector<string> existingIds;
-    ifstream inFile(this->filePath);
+    ifstream inFile("data/books.csv");
     string line;
     string newBookId;
     if (inFile.good()) {
@@ -100,7 +107,7 @@ string Book::generateUniqueBookId() const {
 }
 
 bool Book::addToBookCatalog() const {
-    ofstream outFile(filePath, ios::app);
+    ofstream outFile("data/books.csv", ios::app);
     if (outFile.is_open()) {
         outFile << detailsToString() << "\n";
         outFile.close();
@@ -113,20 +120,22 @@ bool Book::addToBookCatalog() const {
 }
 
 string Book::detailsToString() const {
-    return bookId + "," + title + "," + author + "," + genre + "," + subGenre + "," + (isAvailable ? "1" : "0");
+    return bookId + "," + title + "," + author + "," + genre + "," + subGenre + "," + to_string(year) + "," + (isAvailable ? "1" : "0");
 }
 
-bool Book::updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre) {
-    Catalog library;
-    vector<Book> catalog = library.loadBookCatalog();
+bool Book::updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre, const int& year,  const bool& isAvailable) {
+    Catalog catalog;
+    vector<Book> books = catalog.loadBookCatalog();
     
-    for (auto& book: catalog) {
+    for (auto& book: books) {
         if (book.bookId == this->bookId) {
             if (!title.empty()) book.setTitle(title);
             if (!author.empty()) book.setAuthor(author);
             if (!genre.empty()) book.setGenre(genre);
             if (!subGenre.empty()) book.setSubGenre(subGenre);
-            return library.updateBookCatalog(catalog);
+            if (year != 0) book.setYear(year);
+            book.setAvailability(isAvailable);
+            return catalog.updateBookCatalog(books);
         }
     }
 

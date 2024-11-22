@@ -10,9 +10,10 @@ TEST(AdminTest, AddBook) {
     string author = "Test Author";
     string genre = "Fiction";
     string subGenre = "Fantasy";
+    int year = 1970;
     bool isAvailable = true;
 
-    EXPECT_TRUE(admin.addBook(bookId, title, author, genre, subGenre, isAvailable));
+    EXPECT_TRUE(admin.addBook(bookId, title, author, genre, subGenre, year, isAvailable));
 }
 
 TEST(AdminTest, EditBook) {
@@ -23,9 +24,10 @@ TEST(AdminTest, EditBook) {
     string newAuthor = "Updated Author";
     string newGenre = "Updated Genre";
     string newSubGenre = "Updated Sub-Genre";
+    int newYear = 2100;
     bool isAvailable = false;
 
-    EXPECT_TRUE(admin.editBook(bookId, newTitle, newAuthor, newGenre, newSubGenre, isAvailable));
+    EXPECT_TRUE(admin.editBook(bookId, newTitle, newAuthor, newGenre, newSubGenre, newYear, isAvailable));
 }
 
 TEST(AdminTest, DeleteBook) {

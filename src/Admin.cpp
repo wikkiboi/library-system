@@ -6,33 +6,41 @@
 #include "Book.h"
 #include "Catalog.h"
 
-bool Admin::addBook(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre, bool isAvailable) const {
+bool Admin::addBook(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const {
     Book newBook;
     newBook.setTitle(title);
     newBook.setAuthor(author);
     newBook.setGenre(genre);
     newBook.setSubGenre(subGenre);
-    newBook.setAvailability(true);
+    newBook.setYear(year);
+    newBook.setAvailability(isAvailable);
     newBook.setBookId(bookId);
     return newBook.addToBookCatalog();
 }
 
-bool Admin::addBook(const string& title, const string& author, const string& genre, const string& subGenre, bool isAvailable) const {
+bool Admin::addBook(const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const {
     Book newBook;
     newBook.setTitle(title);
     newBook.setAuthor(author);
     newBook.setGenre(genre);
     newBook.setSubGenre(subGenre);
-    newBook.setAvailability(true);
+    newBook.setYear(year);
+    newBook.setAvailability(isAvailable);
     newBook.setBookId();
     return newBook.addToBookCatalog();
 }
 
-bool Admin::editBook(const string& bookId, const string& newTitle, const string& newAuthor, const string& newGenre, const string& newSubGenre, bool isAvailable) const {
+bool Admin::editBook(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const {
     Catalog catalog;
     Book bookToUpdate = catalog.getBookFromCatalog(bookId);
+    bookToUpdate.setTitle(title);
+    bookToUpdate.setAuthor(author);
+    bookToUpdate.setGenre(genre);
+    bookToUpdate.setSubGenre(subGenre);
+    bookToUpdate.setYear(year);
+    bookToUpdate.setAvailability(isAvailable);
 
-    return bookToUpdate.updateBookDetails(newTitle, newAuthor, newGenre, newSubGenre);
+    return bookToUpdate.updateBookDetails(title, author, genre, subGenre, year, isAvailable);
 }
 
 bool Admin::deleteBook(const string& bookId) const {
