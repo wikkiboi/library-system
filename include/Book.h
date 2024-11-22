@@ -18,23 +18,28 @@ class Book {
         Book();
         void displayBookInfo() const;
     
-    private:
+    //private:
         void setTitle(const string& title);
         void setAuthor(const string& author);
         void setGenre(const string& genre);
         void setSubGenre(const string& subGenre);
         void setAvailability(bool availability);
         void setBookId();
+        void setBookId(const string& bookId);
+
+        bool getAvailability() const;
+        string getBookId() const;
+        string getTitle() const;
+        string getAuthor() const;
+        string getGenre() const;
+        string getSubGenre() const;
+
+        bool addToBookCatalog() const;
         string detailsToString() const;
         string generateUniqueBookId() const;
-        Book getBookFromCatalog(const string& bookId) const;
-        vector<Book> loadBookCatalog();
-        bool addToBookCatalog() const;
-        bool updateBookCatalog(vector<Book>& catalog) const;
+
         bool updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre);
-        bool deleteBookFromCatalog(const string& bookId);
-	static vector<Book> sortCatalogByAuthor(const vector<Book>& catalog);
-	static vector<Book> sortCatalogByGenre(const vector<Book>& catalog);
+
         friend class Admin;
 };
 
