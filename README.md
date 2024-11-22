@@ -53,7 +53,9 @@ Any operation fully completed will output text alerting the user that the operat
 >- Registration successful! Your Library ID is [generated ID]. <br/>
 
 ## Class Diagram
-![LibraryLink Class Diagram](https://i.imgur.com/TeKoFXr.png)
+![LibraryLink Class Diagram](https://i.imgur.com/DN1WHF0.png)
+ * DisplayScreen is an abstract class that specific screen layout classes i.e. AdminScreen, UserScreen, etc. inherit from.
+ * Each specific screen class is associated with the class it is named after, for example, Admin and AdminScreen.
  * User is the base class for all system users, including RegularUser and Administrator. 
  * The RegularUser class inherits from the User class and adds functionality specific to library users. 
  * The Administrator class also inherits from the User class and provides administrative privileges. 
