@@ -66,19 +66,19 @@ Any operation fully completed will output text alerting the user that the operat
  
 ## Updated Class Diagram
 ![LibraryLink Class Diagram](https://i.imgur.com/42uroKY.png)
- * New Abstract DisplayScreen Class
+ * ### New Abstract DisplayScreen Class
     * Open-Closed Principle
     * We added an abstract DisplayScreen class with a render() function and different screens that inherit from it, such as UserScreen, AdminScreen, and CatalogScreen.
     * This allows new screen types to be added without modifying the DisplayScreen code. It makes the code more reusable and open to extension without touching the existing code.
- * New Catalog Class
+ * ### New Catalog Class
     * Single Responsibility, Interface Segregation Principle
     * The Catalog class is solely responsible for managing the book catalog stored in the books.csv file. We moved the logic of modifying the CSV file from LibraryCatalog to the Catalog class.
     * This reduces the responsibility of the LibraryCatalog class. LibraryCatalog will handle the runtime operations and displaying details to the screen, while Catalog will handle the data storage logic. This also makes it easier to maintain and test as any modifications to file operations do not affect LibraryCatalog.
- * Getter/Setter Functions in Book class
+ * ### Getter/Setter Functions in Book class
    * Single Responsibility Principle (Encapsulation)
    * We added a getter and setter function for every member variable in the Book class.
    * This protects the internal state of the Book class and prevents direct access to the attributes. It also increases flexibility by allowing the addition of validation or formatting logic in between.
-* Friend relationship between Admin & Catalog Class
+* ### Friend relationship between Admin & Catalog Class
    * Liskov Substitution Principle
    * We add a friend relationship to ensure that Admin has exclusive access to the private methods in Catalog, which modify the book catalog in the books.csv file.
    * By restricting access to only the Admin class, it protects the integrity of the Catalog class. This also clearly defines the Admin class, in which it is responsible for modifying the book catalog. 
