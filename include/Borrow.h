@@ -15,14 +15,18 @@ class Borrow {
         time_t dueDate;
         int renewalCount;
 
+
     public:
         Borrow();
         Borrow(const string& libraryId, Book& book);
 
         string getDueDate();
         int getBorrowId();
-        void renew();
-        bool isOverdue();
+        int getRenewalCount();
+        void incrementRenewalCount();
+        void setDueDate(time_t newDueDate);
+        bool renewBorrow();
+        void updateBorrowRecord();
 };
 
 #endif
