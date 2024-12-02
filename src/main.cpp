@@ -186,6 +186,34 @@ void displayCatalog(Client& client) {
     }
 }
 
+void handleRenewal(Client& client, Borrow& borrow) {
+    cout << "Would you like to renew your borrow?\n";
+    cout << "1. Yes\n";
+    cout << "2. No\n";
+    cout << "Enter your choice: ";
+    int renewChoice;
+    cin >> renewChoice;
+
+    if (cin.fail() || (renewChoice != 1 && renewChoice != 2)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid option.\n";
+    } else {
+        if (renewChoice == 1) {
+            // Call the renew function
+            if (borrow.renewBorrow()) {
+                cout << "Book renewed successfully!\n";
+                handleRenewal(client, borrow);
+                
+            } else {
+                cout << "You have reached the maximum renewal limit.\n";
+            }
+        } else if (renewChoice == 2) {
+            cout << "Thank you! Enjoy your book.\n";
+        }
+    }
+}
+
 void displayBorrow(Client &client) {
     Catalog catalog;
     cout << "Choose a book ID you want to borrow: ";
@@ -203,6 +231,8 @@ void displayBorrow(Client &client) {
         Borrow borrow = client.borrowBook(borrowedBook);
         cout << "You have borrowed \"" << borrowedBook.getTitle() << "\" by " << borrowedBook.getAuthor() << "!\n";
         cout << "Please return this book by " << borrow.getDueDate() << "\n";
+        handleRenewal(client, borrow);
+        
     } else {
         cout << "Invalid book ID:\n";
     }

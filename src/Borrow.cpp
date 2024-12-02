@@ -48,3 +48,66 @@ string Borrow::getDueDate() {
 int Borrow::getBorrowId() {
     return this->borrowId;
 }
+
+int Borrow::getRenewalCount() const {
+    return this->renewalCount;
+}
+
+void Borrow::incrementRenewalCount() {
+    this->renewalCount++;
+}
+
+void Borrow::setDueDate(time_t newDueDate) {
+    this->dueDate = newDueDate;
+}
+
+bool Borrow::renewBorrow() {
+    const int MAX_RENEWALS = 3;
+    const int ONE_WEEK_SECONDS = 7 * 24 * 60 * 60;
+
+    if (renewalCount >= MAX_RENEWALS) {
+        cout << "Renewal failed: Maximum renewals reached.\n";
+        return false;
+    }
+
+    this->dueDate += ONE_WEEK_SECONDS;
+    this->renewalCount++;
+
+    // Update the borrow record in the file
+    updateBorrowRecord();
+    cout << "Renewal successful. New due date: " << getDueDateString() << "\n";
+    return true;
+}
+
+void Borrow::updateBorrowRecord() const {
+    ifstream file("data/borrow_records.csv");
+    if (!file.is_open()) {
+        cerr << "Error: Unable to open the file for reading!" << endl;
+        return;
+    }
+
+    string line, newContent;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string libId, bookId, borrowDateStr, dueDateStr;
+        getline(ss, libId, ',');
+        getline(ss, bookId, ',');
+        getline(ss, borrowDateStr, ',');
+        getline(ss, dueDateStr, ',');
+
+        if (bookId == book.getBookId()) {
+            newContent += libId + "," + bookId + "," + borrowDateStr + "," + getDueDateString() + "\n";
+        } else {
+            newContent += line + "\n";
+        }
+    }
+    file.close();
+
+    ofstream outFile("data/borrow_records.csv", ios::trunc);
+    if (!outFile.is_open()) {
+        cerr << "Error: Unable to open the file for writing!" << endl;
+        return;
+    }
+    outFile << newContent;
+    outFile.close();
+}
