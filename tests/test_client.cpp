@@ -28,7 +28,7 @@ TEST(ClientTest, BorrowBook) {
 
     Client client;
     bool loginSuccess = client.loginUser("borrowUser", "borrowPassword123");
-    Borrow borrow = client.borrowBook(borrowedBook);
+    ;
 
-    EXPECT_TRUE(borrow.getBorrowId() != -1);
+    EXPECT_TRUE(client.clientBorrowBook(borrowedBook));
 }

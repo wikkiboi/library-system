@@ -9,7 +9,7 @@ using namespace std;
 
 class Borrow {
     private:
-        int borrowId;
+        string borrowId;
         Book book;
         time_t borrowDate;
         time_t dueDate;
@@ -17,16 +17,19 @@ class Borrow {
 
 
     public:
-        Borrow();
-        Borrow(const string& libraryId, Book& book);
+        bool borrowBook(const string& libraryId, Book& book);
 
-        string getDueDate();
-        int getBorrowId();
-        int getRenewalCount();
+        string getDueDate() const;
+        string generateUniqueBorrowId() const;
+        string getBorrowId() const;
+        int getRenewalCount() const;
         void incrementRenewalCount();
         void setDueDate(time_t newDueDate);
+        bool updateBorrowRecord() const;
         bool renewBorrow();
-        void updateBorrowRecord();
+        bool returnBorrow() const;
+
+        friend class Client;
 };
 
 #endif
