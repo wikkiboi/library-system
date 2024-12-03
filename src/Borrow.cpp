@@ -153,4 +153,37 @@ bool Borrow::returnBorrow() const {
         cerr << "Error: Unable to open the file for reading!" << endl;
         return false;
     }
+
+    string line, newContent;
+    bool recordFound = false;
+     while (getline(file, line)) {
+        stringstream ss(line);
+        string borrowId, libId, bookId, borrowDateStr, dueDateStr;
+        getline(ss, borrowId, ',');
+        getline(ss, libId, ',');
+        getline(ss, bookId, ',');
+        getline(ss, borrowDateStr, ',');
+        getline(ss, dueDateStr, ',');
+
+        if (bookId == book.getBookId()) {
+            recordFound = true;
+            continue;
+        }
+        newContent += line + "\n"; 
+    }
+    file.close();
+
+    if (!recordFound) {
+        cerr << "Error: No record found for the specified book ID!" << endl;
+        return false;
+    }
+
+    ofstream outFile("data/borrow_records.csv", ios::trunc);
+    if (!outFile.is_open()) {
+        cerr << "Error: Unable to open the file for writing!" << endl;
+        return false;
+    }
+    outFile << newContent;
+    outFile.close();
+    return true;
 }

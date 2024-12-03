@@ -25,9 +25,11 @@ class Borrow {
         int getRenewalCount() const;
         void incrementRenewalCount();
         void setDueDate(time_t newDueDate);
-        bool renewBorrow();
         bool updateBorrowRecord() const;
+        bool renewBorrow();
         bool returnBorrow() const;
+
+        friend class Client;
 };
 
 #endif
