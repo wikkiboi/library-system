@@ -20,13 +20,13 @@ class Borrow {
         Borrow();
         Borrow(const string& libraryId, Book& book);
 
-        string getDueDate();
+        string getDueDate() const;
         int getBorrowId();
-        int getRenewalCount();
+        int getRenewalCount() const;
         void incrementRenewalCount();
         void setDueDate(time_t newDueDate);
         bool renewBorrow();
-        void updateBorrowRecord();
+        void updateBorrowRecord() const;
 };
 
 #endif

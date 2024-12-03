@@ -41,7 +41,7 @@ Borrow::Borrow(const string& libraryId, Book &book) {
     file.close();
 }
 
-string Borrow::getDueDate() {
+string Borrow::getDueDate() const {
     return timeToDate(this->dueDate);
 }
 
@@ -75,7 +75,7 @@ bool Borrow::renewBorrow() {
 
     // Update the borrow record in the file
     updateBorrowRecord();
-    cout << "Renewal successful. New due date: " << getDueDateString() << "\n";
+    cout << "Renewal successful. New due date: " << getDueDate() << "\n";
     return true;
 }
 
@@ -96,7 +96,7 @@ void Borrow::updateBorrowRecord() const {
         getline(ss, dueDateStr, ',');
 
         if (bookId == book.getBookId()) {
-            newContent += libId + "," + bookId + "," + borrowDateStr + "," + getDueDateString() + "\n";
+            newContent += libId + "," + bookId + "," + borrowDateStr + "," + getDueDate() + "\n";
         } else {
             newContent += line + "\n";
         }
