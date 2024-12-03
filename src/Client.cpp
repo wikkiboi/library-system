@@ -30,7 +30,7 @@ bool Client::clientRenewBook(Borrow& record) {
     if (it != borrowList.end()) {
         if (it->renewBorrow()) {
             cout << "Book successfully renewed" << endl;
-            return false;
+            return true;
         } else {
             cerr << "Error: Unable to renew the book!" << endl;
             return false;
@@ -38,5 +38,25 @@ bool Client::clientRenewBook(Borrow& record) {
     }
 
     cerr << "Error: No matching borrow record found in borrow list" << endl;
+    return false;
+}
+
+bool Client::clientReturnBook(Borrow &record) {
+    auto it = remove_if(borrowList.begin(), borrowList.end(), [&record](const Borrow& borrow) {
+        return borrow.getBorrowId() == record.getBorrowId();
+    });
+
+    if (it != borrowList.end()) {
+        if (!record.returnBorrow()) {
+            cerr << "Error: Unable to complete the return process" << endl;
+            return false;
+        }
+
+        borrowList.erase(it, borrowList.end());
+        cout << "Book successfully returned and removed from borrow list" << endl;
+        return true;
+    }
+
+    cerr << "Error: Borrow record not found in borrow list" << endl;
     return false;
 }
