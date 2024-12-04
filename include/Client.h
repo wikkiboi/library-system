@@ -14,7 +14,6 @@ class Client: public User {
         vector<Borrow> borrowList;
         vector<Book> bookHistory;
     public:
-        void browseCatalog(Catalog& catalog);
         vector<Book> getClientsBookHistory();
         vector<Borrow> getClientsBorrowList();
         bool clientBorrowBook(Book& book);

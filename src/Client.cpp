@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include "Book.h"
+#include "Catalog.h"
 #include "Borrow.h"
 
 using namespace std;

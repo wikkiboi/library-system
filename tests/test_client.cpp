@@ -5,6 +5,7 @@
 #include "Client.h"
 #include "Catalog.h"
 
+#include <vector>
 #include <iostream>
 #include <fstream>
 #include <random>

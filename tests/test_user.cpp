@@ -9,7 +9,7 @@
 
 using namespace std;
 
-string backUpFile(const string& filePath) {
+inline string backUpFile(const string& filePath) {
     ifstream inputFile(filePath);
     string originalContent;
     if (inputFile.is_open()) {
@@ -21,7 +21,7 @@ string backUpFile(const string& filePath) {
     return originalContent;
 }
 
-void restoreFile(const string& originalContent, const string& filePath) {
+inline void restoreFile(const string& originalContent, const string& filePath) {
     ofstream restoreFile(filePath);
     if (restoreFile.is_open()) {
         restoreFile << originalContent;
