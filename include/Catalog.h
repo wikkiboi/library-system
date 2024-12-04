@@ -7,6 +7,8 @@
 #include "Client.h"
 using namespace std;
 
+class Client;
+
 class Catalog {
     private:
         vector<Book> books;
@@ -20,6 +22,7 @@ class Catalog {
 	    static vector<Book> sortCatalogByGenre(const vector<Book>& catalog);
         static vector<Book> sortCatalogByYear(const vector<Book>& catalog);
         friend class Admin;
+        friend class Client;
 };
 
 #endif
