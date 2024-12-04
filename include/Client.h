@@ -12,8 +12,11 @@ using namespace std;
 class Client: public User {
     private:
         vector<Borrow> borrowList;
+        vector<Book> bookHistory;
     public:
         void browseCatalog(Catalog& catalog);
+        vector<Book> getClientsBookHistory();
+        vector<Borrow> getClientsBorrowList();
         bool clientBorrowBook(Book& book);
         bool clientRenewBook(Borrow& record);
         bool clientReturnBook(Borrow& record);

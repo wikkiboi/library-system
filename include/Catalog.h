@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include "Book.h"
+#include "Borrow.h"
+#include "Client.h"
 using namespace std;
 
 class Catalog {
@@ -11,6 +13,7 @@ class Catalog {
     public:
         Book getBookFromCatalog(const string& bookId) const;
         vector<Book> loadBookCatalog();
+        vector<Book> getBookRecommendations(Client client);
         bool updateBookCatalog(vector<Book>& catalog) const;
         bool deleteBookFromCatalog(const string& bookId);
 	    static vector<Book> sortCatalogByAuthor(const vector<Book>& catalog);
