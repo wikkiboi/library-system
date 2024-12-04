@@ -186,6 +186,42 @@ void displayCatalog(Client& client) {
     }
 }
 
+void displayRecommendations(Client& client) {
+    if (!client.getLoggedIn()) {
+        cout << "Please log in or register before viewing\n";
+        return;
+    }
+
+    Catalog catalog;
+    vector<Book> books = catalog.getBookRecommendations(client);
+
+    cout << "\n--- Book Recommendations ---\n";
+    for (const auto& book : books) {
+        book.displayBookInfo();
+        cout << "\n";
+    }
+
+    cout << "Would you like to borrow a book?\n";
+    cout << "1. Yes\n";
+    cout << "2. No\n";
+    cout << "Enter your choice: ";
+    int input;
+    cin >> input;
+
+    if (cin.fail() || (input != 1 && input != 2)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid option. Quitting.\n";
+        return;
+    } else {
+        if (input == 1) {
+            displayBorrow(client);
+        } else if (input == 2) {
+            return;
+        }
+    }
+}
+
 void handleRenewal(Client& client, Borrow& borrow) {
     cout << "Would you like to renew your borrow?\n";
     cout << "1. Yes\n";
@@ -228,7 +264,8 @@ void displayBorrow(Client &client) {
 
     Book borrowedBook = catalog.getBookFromCatalog(bookId);
     if (borrowedBook.getBookId() != "-1") {
-        Borrow borrow = client.borrowBook(borrowedBook);
+        bool borrowSuccess = client.clientBorrowBook(borrowedBook);
+        Borrow borrow = client.getClientsBorrowList().back();
         cout << "You have borrowed \"" << borrowedBook.getTitle() << "\" by " << borrowedBook.getAuthor() << "!\n";
         cout << "Please return this book by " << borrow.getDueDate() << "\n";
         handleRenewal(client, borrow);
@@ -251,7 +288,7 @@ int main() {
         int choice;
         cin >> choice;
 
-        if (cin.fail() || choice < 0 && choice > 4) {
+        if (cin.fail() || choice < 0 && choice > 5) {
             cin.clear();
             cin.ignore(10000, '\n');
             cout << "Invalid option. Please try again.\n";
@@ -264,7 +301,9 @@ int main() {
             handleLogin(client);
         } else if (choice == 3) {
     	    displayCatalog(client);
-	    }else if (choice == 4) {
+        } else if (choice == 4) {
+    	    displayRecommendations(client);
+	    } else if (choice == 5) {
             quit = true;
         } 
     }
