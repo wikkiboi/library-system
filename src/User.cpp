@@ -124,3 +124,38 @@ bool User::addBook(const string& title, const string& author, const string& genr
     cout << "Book ID: " << bookId << endl;
     return true;
 }
+
+
+void User::viewBorrowedBooks(const string& libraryId) {
+    ifstream borrowedBooksFile("borrowed_books.csv");  // Assuming this is the path to the borrowed books file
+    if (!borrowedBooksFile.is_open()) {
+        cerr << "Error: Unable to open borrowed books file!" << endl;
+        return;
+    }
+
+    string line;
+    bool hasBorrowedBooks = false;
+    cout << "Books borrowed by Library ID: " << libraryId << endl;
+
+    while (getline(borrowedBooksFile, line)) {
+        stringstream ss(line);
+        string fileLibraryId, bookId, borrowDate, returnDate;
+
+        if (getline(ss, fileLibraryId, ',') &&
+            getline(ss, bookId, ',') &&
+            getline(ss, borrowDate, ',') &&
+            getline(ss, returnDate, ',')) {
+
+            if (fileLibraryId == libraryId) {
+                hasBorrowedBooks = true;
+                cout << "Book ID: " << bookId << ", Borrow Date: " << borrowDate << ", Return Date: " << returnDate << endl;
+            }
+        }
+    }
+
+    borrowedBooksFile.close();
+
+    if (!hasBorrowedBooks) {
+        cout << "You have no borrowed books. Would you like to view the book catalog?" << endl;
+    }
+}

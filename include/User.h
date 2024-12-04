@@ -20,6 +20,7 @@ class User {
 
         // Book-related function
         bool addBook(const string& title, const string& author, const string& genre);
+        void viewBorrowedBooks(const string& libraryId);
 };
 
 #endif
