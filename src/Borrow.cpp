@@ -18,7 +18,6 @@ string timeToDate(time_t seconds) {
 }
 
 bool Borrow::borrowBook(const string& libraryId, Book &book) {
-
     this->borrowId = generateUniqueBorrowId();
     if (borrowId == "fail") return false;
     this->renewalCount = 0;

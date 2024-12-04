@@ -14,12 +14,20 @@ bool Client::clientBorrowBook(Book& book) {
     if (book.getAvailability()) {
         if (borrow.borrowBook(this->libraryId, book) != true) return false;
         borrowList.push_back(borrow);
+        bookHistory.push_back(book);
     } else {
         cout << "Book is not available" << endl;
         return false;
     }
-
     return true;
+}
+
+vector<Borrow> Client::getClientsBorrowList() {
+    return this->borrowList;
+}
+
+vector<Book> Client::getClientsBookHistory() {
+    return this->bookHistory;
 }
 
 bool Client::clientRenewBook(Borrow& record) {

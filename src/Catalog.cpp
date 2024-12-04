@@ -2,10 +2,15 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <iostream>
 #include <random>
 #include <vector>
+#include <unordered_map>
+#include <unordered_set>
 #include <algorithm>
 #include "Book.h"
+#include "Client.h"
+#include "Borrow.h"
 #include "Catalog.h"
 
 Book Catalog::getBookFromCatalog(const string& bookId) const {
@@ -110,6 +115,65 @@ vector<Book> Catalog::loadBookCatalog() {
     }
 
     return books;
+}
+
+vector<Book> Catalog::getBookRecommendations(Client client) {
+    vector<Book> bookCatalog = loadBookCatalog();
+    vector<Book> bookHistory = client.getClientsBookHistory();
+    
+    const int listSize = 20;
+
+    unordered_map<string, int> freqMapGenre;
+    unordered_map<string, int> freqMapSubGenre;
+    for (const auto& book : bookHistory) {
+        freqMapGenre[book.getGenre()]++;
+        freqMapSubGenre[book.getSubGenre()]++;
+    }
+
+    vector<pair<string, int>> freqVecGenre(freqMapGenre.begin(), freqMapGenre.end());
+    vector<pair<string, int>> freqVecSubGenre(freqMapSubGenre.begin(), freqMapSubGenre.end());
+
+    sort(freqVecGenre.begin(), freqVecGenre.end(), [](const auto& a, const auto& b) {
+        return a.second > b.second;
+    });
+
+    sort(freqVecSubGenre.begin(), freqVecSubGenre.end(), [](const auto& a, const auto& b) {
+        return a.second > b.second;
+    });
+
+    vector<string> topThreeGenres;
+    vector<string> topThreeSubGenres;
+
+    for (size_t i = 0; i < topThreeSubGenres.size() && i < 3; ++i) {
+        topThreeGenres.push_back(freqVecGenre[i].first);
+    }
+    for (size_t i = 0; i < topThreeGenres.size() && i < 3; ++i) {
+        topThreeSubGenres.push_back(freqVecSubGenre[i].first);
+    }
+
+    unordered_set<string> addedBooks; //prevent duplicates
+    vector<Book> bookRecommendations;
+    for (size_t i = 0; i < topThreeSubGenres.size(); ++i) {
+        if (bookRecommendations.size() >= listSize) break;
+        string searchSubGenre = topThreeSubGenres[i];
+        for (const Book& book : bookCatalog) {
+            if (book.getSubGenre() == searchSubGenre && addedBooks.insert(book.getTitle()).second) {
+                bookRecommendations.push_back(book);
+            }
+            if (bookRecommendations.size() >= listSize) break;
+        }
+    }
+    for (size_t i = 0; i < topThreeGenres.size(); ++i) {
+        if (bookRecommendations.size() >= listSize) break;
+        string searchGenre = topThreeGenres[i];
+        for (const Book& book : bookCatalog) {
+            if (book.getGenre() == searchGenre && addedBooks.insert(book.getTitle()).second) {
+                bookRecommendations.push_back(book);
+            }
+            if (bookRecommendations.size() >= listSize) break;
+        }
+    }
+    return bookRecommendations;
 }
 
 vector<Book> Catalog::sortCatalogByAuthor(const vector<Book>& catalog) {
