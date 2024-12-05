@@ -27,7 +27,7 @@ class Borrow {
         void setDueDate(time_t newDueDate);
         bool updateBorrowRecord() const;
         bool renewBorrow();
-        bool returnBorrow() const;
+        bool returnBorrow();
 
         friend class Client;
 };

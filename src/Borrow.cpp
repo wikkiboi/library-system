@@ -18,6 +18,7 @@ string timeToDate(time_t seconds) {
 }
 
 bool Borrow::borrowBook(const string& libraryId, Book &book) {
+    if(!book.getAvailability()) return false;
     this->borrowId = generateUniqueBorrowId();
     if (borrowId == "fail") return false;
     this->renewalCount = 0;
@@ -25,7 +26,7 @@ bool Borrow::borrowBook(const string& libraryId, Book &book) {
     this->borrowDate = time(nullptr);
     this->dueDate = this->borrowDate + (30 * 24 * 60 * 60);
 
-    ofstream file("data/borrow_records.csv", ios::app);
+    fstream file("data/borrow_records.csv", ios::app);
     if (!file.is_open()) {
         cerr << "Error: Unable to open the file!" << endl;
         return false;
@@ -34,6 +35,7 @@ bool Borrow::borrowBook(const string& libraryId, Book &book) {
     file << borrowId << 
     "," << libraryId << "," << book.getBookId() << "," << timeToDate(borrowDate) << "," << timeToDate(dueDate) << "\n";
     file.close();
+    book.setAvailability(false);
     return true;
 }
 
@@ -47,10 +49,10 @@ string Borrow::generateUniqueBorrowId() const {
     static uniform_int_distribution<int> dist(10000, 99999);
 
     vector<string> existingIds;
-    ifstream inFile("data/borrow_record.csv");
+    fstream inFile("data/borrow_record.csv");
     string line;
     string newBorrowId;
-    if (inFile.good()) {
+  
         while (getline(inFile, line)) {
             // Assuming borrowId is the first column in the CSV
             size_t pos = line.find(',');
@@ -58,10 +60,6 @@ string Borrow::generateUniqueBorrowId() const {
                 existingIds.push_back(line.substr(0, pos));
             }
         }
-    } else {
-        cerr << "Error: Unable to open the file!" << endl;
-        return "fail";
-    }
     inFile.close();
 
     bool isUnique = false;
@@ -96,7 +94,10 @@ void Borrow::setDueDate(time_t newDueDate) {
 bool Borrow::renewBorrow() {
     const int MAX_RENEWALS = 3;
     const int ONE_WEEK_SECONDS = 7 * 24 * 60 * 60;
-
+ 	if (this->borrowId.empty()) {
+        cout << "Renewal failed: No borrow record found.\n";
+        return false;
+    }
     if (renewalCount >= MAX_RENEWALS) {
         cout << "Renewal failed: Maximum renewals reached.\n";
         return false;
@@ -146,7 +147,7 @@ bool Borrow::updateBorrowRecord() const {
     return true;
 }
 
-bool Borrow::returnBorrow() const {
+bool Borrow::returnBorrow() {
     ifstream file("data/borrow_records.csv");
     if (!file.is_open()) {
         cerr << "Error: Unable to open the file for reading!" << endl;
