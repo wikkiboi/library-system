@@ -33,11 +33,26 @@ TEST(ClientTest, BorrowBookFailureWhenUnavailable) {
 }
 
 
+TEST(ClientTest, TestClientRenewBook_Success) {
+    Client client;
+    Book book1;
+    book1.setBookId("B005");
+    book1.setTitle("Book 1");
+    book1.setAuthor("Author 1");
+    book1.setAvailability(true);
+
+    client.clientBorrowBook(book1);
+    Borrow borrowRecord = client.loadClientsBorrowList()[0];  
+    
+
+    EXPECT_TRUE(client.clientRenewBook(borrowRecord)); 
+}
+
 
 TEST(ClientTest, TestClientRenewBook_Failure_RecordNotFound) {
     Client client;
     Book book;
-    book.setBookId("B003"); //
+    book.setBookId("B006"); //
     
 
     Borrow borrowRecord;
@@ -46,8 +61,9 @@ TEST(ClientTest, TestClientRenewBook_Failure_RecordNotFound) {
     EXPECT_FALSE(client.clientRenewBook(borrowRecord));  
 }
 
+
 TEST(ClientTest, TestClientReturnBook_Failure_RecordNotFound) {
-     Client client;
+    Client client;
     Book book;
     book.setBookId("non-existing-borrow-id"); //
     

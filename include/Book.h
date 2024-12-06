@@ -15,7 +15,7 @@ class Book {
         bool isAvailable;
 
     public:
-        Book();
+        Book() : bookId("-1"), title(""), author(""), genre(""), subGenre(""), year(0), isAvailable(true) {};
         void displayBookInfo() const;
 
         //Setters 
