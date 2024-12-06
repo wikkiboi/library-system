@@ -39,10 +39,11 @@ TEST(ClientTest, TestClientRenewBook_Success) {
     book1.setBookId("B005");
     book1.setTitle("Book 1");
     book1.setAuthor("Author 1");
+    book1.setGenre("Genre 1");
     book1.setAvailability(true);
 
     client.clientBorrowBook(book1);
-    Borrow borrowRecord = client.loadClientsBorrowList()[0];  
+    Borrow borrowRecord = client.loadClientsBorrowList().back();  
     
 
     EXPECT_TRUE(client.clientRenewBook(borrowRecord)); 
