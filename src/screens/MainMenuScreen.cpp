@@ -20,7 +20,7 @@ void MainMenuScreen::handleMainMenuChoice() {
         int choice;
         cin >> choice;
 
-        if (cin.fail() || choice < 1 || choice > 3) {
+        if (cin.fail() || choice < 1 || choice > 4) {
             cout << "Invalid option. Please try again.\n" << endl;
             cout << "1. Register User\n";
             cout << "2. Login \n";

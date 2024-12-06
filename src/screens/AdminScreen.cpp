@@ -1,4 +1,7 @@
 #include "screens/AdminScreen.h"
+#include "screens/AddBookScreen.h"
+#include "screens/EditBookScreen.h"
+#include "screens/RemoveBookScreen.h"
 #include "screens/CatalogScreen.h"
 #include <iostream>
 #include <string>
@@ -28,13 +31,17 @@ bool AdminScreen::handleAdminChoice() {
     cin >> choice;
 
     if (choice == 1) {
-        cout << "Catalog" << endl;
+        CatalogScreen catalogScreen;
+        catalogScreen.render();
     } else if (choice == 2) {
-        cout << "Add Book" << endl;
+        AddBookScreen addBookScreen(admin);
+        addBookScreen.render();
     } else if (choice == 3) {
-        cout << "Edit Book" << endl;
+        EditBookScreen editBookScreen(admin);
+        editBookScreen.render();
     } else if (choice == 4) {
-        cout << "Delete Book" << endl;
+        RemoveBookScreen removeBookScreen(admin);
+        removeBookScreen.render();
     } else if (choice == 5) {
         return true;
     } else {
