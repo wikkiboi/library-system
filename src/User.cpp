@@ -6,6 +6,11 @@
 
 using namespace std;
 
+User::User(const string& username = "", const string& password = "") {
+        this->username = username;
+        this->password = password;
+    }
+
 bool User::registerUser(const string& username, const string& password) {
     if (username.empty()) {
         return false;

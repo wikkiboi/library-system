@@ -6,6 +6,16 @@
 #include "Book.h"
 #include "Catalog.h"
 
+Admin::Admin(const string& username, const string& password)
+    : User(username, password) {
+    if (!loginUser(username, password)) {
+        loggedIn = false;
+        cout << "Login failed for admin: " << username << endl;
+    } else {
+        cout << "Admin logged in: " << username << endl;
+    }
+}
+
 bool Admin::addBook(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const {
     Book newBook;
     newBook.setTitle(title);

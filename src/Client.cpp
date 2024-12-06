@@ -10,6 +10,16 @@
 
 using namespace std;
 
+Client::Client(const string& username, const string& password)
+    : User(username, password) {
+    cout << "Client created: " << username << endl;
+    if (!getLoggedIn()) {
+        cout << "Login failed for client: " << username << endl;
+    } else {
+        cout << "Client logged in: " << username << endl;
+    }
+}
+
 bool Client::clientBorrowBook(Book& book) {
     Borrow borrow;
     if (book.getAvailability()) {

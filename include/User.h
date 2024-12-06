@@ -12,6 +12,7 @@ class User {
         string libraryId;
         bool loggedIn = false;
     public:
+        User(const string& username, const string& password);
         bool registerUser(const string& username, const string& password);
         bool loginUser(const string& username, const string& password);
         bool getLoggedIn();
