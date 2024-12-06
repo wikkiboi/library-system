@@ -13,4 +13,4 @@ public:
     void handleAdminChoice(int choice);
 };
 
-#endif // ADMINSCREEN_H
+#endif
