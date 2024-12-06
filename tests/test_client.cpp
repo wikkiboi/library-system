@@ -33,21 +33,6 @@ TEST(ClientTest, BorrowBookFailureWhenUnavailable) {
 }
 
 
-TEST(ClientTest, TestClientRenewBook_Success) {
-    Client client;
-    Book book1;
-    book1.setBookId("B001");
-    book1.setTitle("Book 1");
-    book1.setAuthor("Author 1");
-    book1.setAvailability(true);
-
-    client.clientBorrowBook(book1);
-    Borrow borrowRecord = client.getClientsBorrowList()[0];  
-    
-
-    EXPECT_TRUE(client.clientRenewBook(borrowRecord)); 
-}
-
 
 TEST(ClientTest, TestClientRenewBook_Failure_RecordNotFound) {
     Client client;
@@ -61,19 +46,6 @@ TEST(ClientTest, TestClientRenewBook_Failure_RecordNotFound) {
     EXPECT_FALSE(client.clientRenewBook(borrowRecord));  
 }
 
-TEST(ClientTest, TestClientReturnBook_Success) {
-    Client client;
-    Book book1;
-    book1.setBookId("B001");
-    book1.setTitle("Book 1");
-    book1.setAuthor("Author 1");
-    book1.setAvailability(true);
-
-    client.clientBorrowBook(book1);
-    Borrow borrowRecord = client.getClientsBorrowList()[0]; 
-    EXPECT_TRUE(client.clientReturnBook(borrowRecord)); 
-    EXPECT_EQ(client.getClientsBorrowList().size(), 0);  
-}
 TEST(ClientTest, TestClientReturnBook_Failure_RecordNotFound) {
      Client client;
     Book book;

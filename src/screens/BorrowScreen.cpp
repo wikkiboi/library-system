@@ -8,9 +8,9 @@ BorrowScreen::BorrowScreen(Client& clientRef) : client(clientRef) {}
 void BorrowScreen::render() {
     Catalog catalog;
     while (true) {
-        cout << "Enter the ID of the book you want to borrow: ";
+        cout << "Enter the ID of the book you want to borrow (Enter empty input to return to dashboard): ";
         string bookId;
-        cin >> bookId;
+        getline(cin, bookId);
 
         if (cin.fail()) {
             cin.clear();
@@ -24,7 +24,7 @@ void BorrowScreen::render() {
                 cout << "You have borrowed \"" << bookToBorrow.getTitle() << "\" by " << bookToBorrow.getAuthor() << "!\n";
                 cout << "Please return the book by the due date.\n";
             } else {
-                cout << "Unable to borrow the book. Check your borrow limit or overdue status.\n";
+                cout << "Unable to borrow the book. Unless book is unavailable, check your borrow limit or overdue status.\n";
             }
         } else {
             cout << "Book ID not found. Returning to the previous menu.\n";
@@ -32,5 +32,6 @@ void BorrowScreen::render() {
         }
     }
 
+    cin.clear();
     return;
 }

@@ -1,5 +1,5 @@
-#ifndef BORROWSCREEN_H
-#define BORROWSCREEN_H
+#ifndef BORROWRETURNSCREEN_H
+#define BORROWRETURNSCREEN_H
 
 #include "DisplayScreen.h"
 #include "Client.h"
@@ -8,12 +8,11 @@
 
 using namespace std;
 
-class BorrowEditScreen : public DisplayScreen {
+class BorrowReturnScreen : public DisplayScreen {
 private:
     Client& client;
-    Borrow& borrow;
 public:
-    BorrowEditScreen(Client& client, Borrow& borrow);
+    BorrowReturnScreen(Client& client);
     void render() override;
 };
 
