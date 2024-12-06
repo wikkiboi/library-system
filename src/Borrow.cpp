@@ -75,14 +75,6 @@ string Borrow::generateUniqueBorrowId() const {
 }
 
 
-string Borrow::getBorrowId() const {
-    return this->borrowId;
-}
-
-int Borrow::getRenewalCount() const {
-    return this->renewalCount;
-}
-
 void Borrow::incrementRenewalCount() {
     this->renewalCount++;
 }

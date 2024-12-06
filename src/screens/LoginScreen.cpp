@@ -9,6 +9,10 @@
 
 using namespace std;
 
+LoginScreen::LoginScreen(bool adminLogin) {
+    this->adminLogin = adminLogin;
+}
+
 void LoginScreen::render() {
     User user;
     string username;
@@ -20,9 +24,10 @@ void LoginScreen::render() {
 
         if (user.loginUser(username, password)) {
             cout << "Login Success!" << endl;
-            if (user.getAdminFlag()) {
+            if (this->adminLogin) {
                 Admin admin(user);
                 AdminScreen adminScreen(admin);
+                adminScreen.render();
             } else {
                 Client client(user);
                 UserScreen userScreen(client);

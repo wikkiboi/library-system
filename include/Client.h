@@ -16,8 +16,8 @@ class Client: public User {
     public:
         Client() {};
         Client(const User& user);
-        vector<Book> getClientsBookHistory();
-        vector<Borrow> getClientsBorrowList();
+        vector<Book> getClientsBookHistory() { return bookHistory; };
+        vector<Borrow> getClientsBorrowList() { return borrowList; };
         bool clientBorrowBook(Book& book);
         bool clientRenewBook(Borrow& record);
         bool clientReturnBook(Borrow& record);

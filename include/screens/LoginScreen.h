@@ -7,8 +7,10 @@
 using namespace std;
 
 class LoginScreen : public DisplayScreen {
+    private:
+        bool adminLogin = false;
     public:
-        LoginScreen() {};
+        LoginScreen(bool adminLogin);
         void render() override;
         string handleUsernameInput();
         string handlePasswordInput();

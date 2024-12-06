@@ -8,12 +8,12 @@
 
 using namespace std;
 
-class BorrowScreen : public DisplayScreen {
+class BorrowEditScreen : public DisplayScreen {
 private:
     Client& client;
-    Catalog catalog;
+    Borrow& borrow;
 public:
-    BorrowScreen(Client& client);
+    BorrowEditScreen(Client& client, Borrow& borrow);
     void render() override;
 };
 

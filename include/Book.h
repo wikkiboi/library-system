@@ -29,13 +29,13 @@ class Book {
         void setBookId(const string& bookId);
 
         //Getters
-        bool getAvailability() const;
-        string getBookId() const;
-        string getTitle() const;
-        string getAuthor() const;
-        string getGenre() const;
-        string getSubGenre() const;
-        int getYear() const;
+        bool getAvailability() const { return isAvailable; };
+        string getBookId() const { return bookId; };
+        string getTitle() const { return title; };
+        string getAuthor() const { return author; };
+        string getGenre() const { return genre; };
+        string getSubGenre() const { return subGenre; };
+        int getYear() const { return year; };
 
         bool addToBookCatalog() const;
         bool updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable);

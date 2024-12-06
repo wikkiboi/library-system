@@ -11,28 +11,6 @@
 #include <random>
 #include <sstream>
 
-TEST(ClientTest, BorrowBook) {
-    Catalog catalog;
-    Admin admin;
-    
-    string bookId = "31415";
-    string title = "Test Book";
-    string author = "Test Author";
-    string genre = "Fiction";
-    string subGenre = "Fantasy";
-    int year = 2000;
-    bool isAvailable = true;
-    bool addBook = admin.addBook(title, author, genre, subGenre, year, isAvailable);
-    EXPECT_TRUE(addBook);
-
-    Book borrowedBook = catalog.getBookFromCatalog(bookId);
-
-    Client client;
-    bool loginSuccess = client.loginUser("borrowUser", "borrowPassword123");
-    ;
-
-    EXPECT_TRUE(client.clientBorrowBook(borrowedBook));
-}
 
 TEST(ClientTest, BorrowBookSuccess) {
     Book book;

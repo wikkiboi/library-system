@@ -11,12 +11,10 @@ class User {
         string password;
         string libraryId;
         bool loggedIn = false;
-        bool isAdmin = false;
     public:
         User() {};
         User(const string& username, const string& password);
-        
-        bool getAdminFlag() const { return isAdmin; }
+
         bool getLoggedIn() const { return loggedIn; }
         string getUserId() const { return userId; }
         string getUsername() const { return username; }

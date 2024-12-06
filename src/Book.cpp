@@ -50,30 +50,6 @@ void Book::setBookId(const string& bookId) {
     this->bookId = bookId;
 }
 
-bool Book::getAvailability() const {
-    return this->isAvailable;
-}
-
-string Book::getBookId() const {
-    return this->bookId;
-}
-
-string Book::getTitle() const {
-    return this->title;
-}
-string Book::getAuthor() const{
-    return this->author;
-}
-string Book::getGenre() const{
-    return this->genre;
-}
-string Book::getSubGenre() const{
-    return this->subGenre;
-}
-int Book::getYear() const{
-    return this->year;
-}
-
 string Book::generateUniqueBookId() const {
     static random_device rd;
     static mt19937 gen(rd());

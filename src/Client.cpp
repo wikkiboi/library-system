@@ -14,7 +14,6 @@ Client::Client(const User& user) : User(user.getUsername(), user.getPassword()) 
         this->userId = user.getUserId();
         this->libraryId = user.getLibraryId();
         this->loggedIn = user.getLoggedIn();
-        this->isAdmin = false;
     }
 
 bool Client::clientBorrowBook(Book& book) {
@@ -28,14 +27,6 @@ bool Client::clientBorrowBook(Book& book) {
         return false;
     }
     return true;
-}
-
-vector<Borrow> Client::getClientsBorrowList() {
-    return this->borrowList;
-}
-
-vector<Book> Client::getClientsBookHistory() {
-    return this->bookHistory;
 }
 
 bool Client::clientRenewBook(Borrow& record) {

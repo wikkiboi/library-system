@@ -8,7 +8,8 @@ void MainMenuScreen::render() {
     cout << "\nLibraryLink\n";
     cout << "1. Register User\n";
     cout << "2. Login \n";
-    cout << "3. Quit \n";
+    cout << "3. Login as Admin \n";
+    cout << "4. Quit \n";
     cout << "Enter your choice: ";
 }
 
@@ -23,7 +24,8 @@ void MainMenuScreen::handleMainMenuChoice() {
             cout << "Invalid option. Please try again.\n" << endl;
             cout << "1. Register User\n";
             cout << "2. Login \n";
-            cout << "3. Quit \n";
+            cout << "3. Login as Admin \n";
+            cout << "4. Quit \n";
             cout << "Enter your choice: ";
             continue;
         }
@@ -34,10 +36,14 @@ void MainMenuScreen::handleMainMenuChoice() {
             registerUser.render();
             render();
         } else if (choice == 2) {
-            LoginScreen loginUser;
+            LoginScreen loginUser(false);
             loginUser.render();
             render();
         } else if (choice == 3) {
+            LoginScreen loginUser(true);
+            loginUser.render();
+            render();
+        } else if (choice == 4) {
             quit = true;
         }
 

@@ -1,4 +1,7 @@
 #include "screens/UserScreen.h"
+#include "screens/BorrowScreen.h"
+#include "screens/CatalogScreen.h"
+#include "screens/RecommendationScreen.h"
 #include <string>
 #include <iostream>
 
@@ -10,9 +13,10 @@ void UserScreen::render() {
     while(true) {
             cout << "\n--- " << client.getUsername() << "'s" << " Dashboard ---\n";
             cout << "1. Browse Book Catalog\n";
-            cout << "2. Manage Borrowed Books\n";
-            cout << "3. View Recommendations\n";
-            cout << "4. Logout\n";
+            cout << "2. Borrow Book\n";
+            cout << "3. Renew/Return Book\n";
+            cout << "4. View Recommendations\n";
+            cout << "5. Logout\n";
             cout << "Enter your choice: ";
             
             bool logout;
@@ -26,12 +30,17 @@ bool UserScreen::handleUserChoice() {
     cin >> choice;
 
     if (choice == 1) {
-        cout << "Catalog" << endl;
+        CatalogScreen catalogScreen;
+        catalogScreen.render();
     } else if (choice == 2) {
-        cout << "Borrowed Books" << endl;
+        BorrowScreen borrowScreen(client);
+        borrowScreen.render();
     } else if (choice == 3) {
-        cout << "View Recommendations" << endl;
+
     } else if (choice == 4) {
+        RecommendationScreen recommendationScreen(client);
+        recommendationScreen.render();
+    } else if (choice == 5) {
         return true;
     } else {
         cout << "Invalid option. Please try again.\n";

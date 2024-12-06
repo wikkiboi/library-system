@@ -19,10 +19,10 @@ class Borrow {
     public:
         bool borrowBook(const string& libraryId, Book& book);
 
+        int getRenewalCount() const { return renewalCount; };
+        string getBorrowId() const { return borrowId; };
         string getDueDate() const;
         string generateUniqueBorrowId() const;
-        string getBorrowId() const;
-        int getRenewalCount() const;
         void incrementRenewalCount();
         void setDueDate(time_t newDueDate);
         bool updateBorrowRecord() const;

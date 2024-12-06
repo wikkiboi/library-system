@@ -7,10 +7,9 @@
 
 class CatalogScreen : public DisplayScreen {
 private:
-    User& user;
     Catalog catalog;
 public:
-    explicit CatalogScreen(User& userRef);
+    CatalogScreen() {};
     void render() override;
 };
 
