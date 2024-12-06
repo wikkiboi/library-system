@@ -87,14 +87,6 @@ Any operation fully completed will output text alerting the user that the operat
    * We add a friend relationship to ensure that Admin has exclusive access to the private methods in Catalog, which modify the book catalog in the books.csv file.
    * By restricting access to only the Admin class, it protects the integrity of the Catalog class. This also clearly defines the Admin class, in which it is responsible for modifying the book catalog. 
  
- > ## Final deliverable
- > All group members will give a demo to the reader during lab time. ou should schedule your demo on Calendly with the same reader who took your second scrum meeting. The reader will check the demo and the project GitHub repository and ask a few questions to all the team members. 
- > Before the demo, you should do the following:
- > * Complete the sections below (i.e. Screenshots, Installation/Usage, Testing)
- > * Plan one more sprint (that you will not necessarily complete before the end of the quarter). Your In-progress and In-testing columns should be empty (you are not doing more work currently) but your TODO column should have a full sprint plan in it as you have done before. This should include any known bugs (there should be some) or new features you would like to add. These should appear as issues/cards on your Project board.
- > * Make sure your README file and Project board are up-to-date reflecting the current status of your project (e.g. any changes that you have made during the project such as changes to your class diagram). Previous versions should still be visible through your commit history.
->  * Each team member should also submit the Individual Contributions Form on Canvas for this final phase. In this form, you need to fill in the names of all team members, the percentage of work contributed by each member for the final phase, and a description of their contributions. Remember that each team member should submit the form individually.
- 
  ## Screenshots
  ### Main Menu Screen
  ![Main Menu Screen](https://i.imgur.com/Skr0XSb.png)
