@@ -41,7 +41,7 @@ TEST(TestBorrowBook, TestBorrowBook_Failure_BookUnavailable) {
 
 TEST(TestRenewBook, TestRenewBook_Success) {
     Book book1;
-    book1.setBookId("B001");
+    book1.setBookId("B003");
     book1.setTitle("Test Book 1");
     book1.setAuthor("Author A");
     book1.setGenre("Fiction");
@@ -61,7 +61,7 @@ TEST(TestRenewBook, TestRenewBook_Failure_NoBorrowRecord) {
 }
 TEST(TestRenewBook, TestRenewBook_ExceedMaxRenewal) {
     Book book1;
-    book1.setBookId("B001");
+    book1.setBookId("B004");
     book1.setTitle("Test Book 1");
     book1.setAuthor("Author A");
     book1.setGenre("Fiction");
@@ -78,4 +78,3 @@ TEST(TestRenewBook, TestRenewBook_ExceedMaxRenewal) {
 
     EXPECT_FALSE(borrow.renewBorrow());  
 }
-

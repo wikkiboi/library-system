@@ -10,9 +10,6 @@
 
 using namespace std;
 
-Book::Book() {
-    this->bookId = "-1";
-};
     // Display Book Info
 void Book::displayBookInfo() const {
     cout << "Book ID: " << bookId << "\n"
