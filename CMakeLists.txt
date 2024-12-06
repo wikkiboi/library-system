@@ -2,10 +2,11 @@ cmake_minimum_required(VERSION 3.2)
 project(library-management-system)
 
 include_directories(include)
+include_directories(${CMAKE_SOURCE_DIR}/src/screens)
 ADD_SUBDIRECTORY(tests/googletest)
 
 file(GLOB TEST_SOURCES "tests/*.cpp")
-file(GLOB SRC_SOURCES "src/*.cpp")
+file(GLOB SRC_SOURCES "src/*.cpp" "src/screens/*.cpp")
 
 add_executable(run_tests ${TEST_SOURCES} "src/User.cpp" "src/Book.cpp" "src/Admin.cpp" "src/Catalog.cpp" "src/Borrow.cpp" "src/Client.cpp")
 

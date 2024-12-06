@@ -2,6 +2,7 @@
 #include "screens/RegisterScreen.h"
 #include "screens/LoginScreen.h"
 #include <iostream>
+#include <string>
 
 void MainMenuScreen::render() {
     cout << "\nLibraryLink\n";
@@ -13,21 +14,20 @@ void MainMenuScreen::render() {
 
 void MainMenuScreen::handleMainMenuChoice() {
     bool quit = false;
-    int choice;
 
     while (!quit) {
+        int choice;
         cin >> choice;
 
-        if (cin.fail() || choice < 1 && choice > 3) {
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cout << "Invalid option. Please try again.\n";
+        if (cin.fail() || choice < 1 || choice > 3) {
+            cout << "Invalid option. Please try again.\n" << endl;
             cout << "1. Register User\n";
             cout << "2. Login \n";
             cout << "3. Quit \n";
             cout << "Enter your choice: ";
             continue;
         }
+
 
         if (choice == 1) {
             RegisterScreen registerUser;
@@ -40,6 +40,8 @@ void MainMenuScreen::handleMainMenuChoice() {
         } else if (choice == 3) {
             quit = true;
         }
+
+        cin.clear();
     }
 
     return;

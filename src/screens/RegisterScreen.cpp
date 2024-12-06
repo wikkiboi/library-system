@@ -11,10 +11,7 @@ void RegisterScreen::render() {
     string password;
 
     do {
-        cout << "Enter your username: ";
         username = handleUsernameInput();
-
-        cout << "Enter your password: ";
         password = handlePasswordInput();
 
         if (client.registerUser(username, password)) {
@@ -31,10 +28,10 @@ void RegisterScreen::render() {
 
 string RegisterScreen::handleUsernameInput() {
     string username;
+    cin.clear();
+    cin.ignore(10000, '\n');
 
     do {
-        cin.clear();
-        cin.ignore(10000, '\n');
 
         cout << "Enter your username: ";
         getline(cin, username);
@@ -42,6 +39,8 @@ string RegisterScreen::handleUsernameInput() {
         if (username.empty()) {
             cout << "Invalid username. Please ensure it is not empty and meets the requirements.\n";
         }
+        
+        cin.clear();
     } while (username.empty());
 
     return username;
@@ -49,15 +48,16 @@ string RegisterScreen::handleUsernameInput() {
 
 string RegisterScreen::handlePasswordInput() {
     string password;
+    cin.clear();
 
     do {
-        cin.clear();
-        cin.ignore(10000, '\n');
-        cout << "Enter your username: ";
+        cout << "Enter your password: ";
         getline(cin, password);
         if (!isValidPassword(password)) {
             cout << "Invalid password. It must be at least 8 characters long and contain a mix of letters and numbers.\n";
         }
+
+        cin.clear();
     } while (!isValidPassword(password));
 
     return password;
