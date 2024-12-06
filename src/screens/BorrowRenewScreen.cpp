@@ -6,6 +6,11 @@ BorrowRenewScreen::BorrowRenewScreen(Client& client) : client(client) {};
 void BorrowRenewScreen::render() {
     vector<Borrow> borrowList = client.loadClientsBorrowList();
 
+    if (borrowList.empty()) {
+        cout << "No borrowed books to Renew. Check out the catalog to borrow one!\n";
+        return;
+    }
+
     for (const auto& borrow : borrowList) {
         borrow.displayBorrowInfo();
         cout << "\n";

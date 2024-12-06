@@ -6,6 +6,11 @@ BorrowReturnScreen::BorrowReturnScreen(Client& client) : client(client) {};
 void BorrowReturnScreen::render() {
     vector<Borrow> borrowList = client.loadClientsBorrowList();
 
+    if (borrowList.empty()) {
+        cout << "No borrowed books to return. Check out the catalog to borrow one!\n";
+        return;
+    }
+
     for (const auto& borrow : borrowList) {
         borrow.displayBorrowInfo();
         cout << "\n";
