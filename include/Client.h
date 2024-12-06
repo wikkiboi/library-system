@@ -14,6 +14,7 @@ class Client: public User {
         vector<Borrow> borrowList;
         vector<Book> bookHistory;
     public:
+        Client() {};
         Client(const string& username, const string& password);
         vector<Book> getClientsBookHistory();
         vector<Borrow> getClientsBorrowList();

@@ -8,6 +8,7 @@ using namespace std;
 
 class Admin: public User {
     public:
+        Admin() {};
         Admin(const string& username, const string& password);
         bool addBook(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const;
         bool addBook(const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const;
