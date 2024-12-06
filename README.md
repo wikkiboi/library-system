@@ -94,10 +94,30 @@ Any operation fully completed will output text alerting the user that the operat
 >  * Each team member should also submit the Individual Contributions Form on Canvas for this final phase. In this form, you need to fill in the names of all team members, the percentage of work contributed by each member for the final phase, and a description of their contributions. Remember that each team member should submit the form individually.
  
  ## Screenshots
- > Screenshots of the input/output after running your application
+ ### Main Menu Screen
+ ![Main Menu Screen](https://i.imgur.com/Skr0XSb.png)
+
+ ### Catalog Screen
+ ![Catalog Screen](https://i.imgur.com/Sv0nGgv.png)
+ 
+ ### User (Client) Screen
+ ![User Dashboard](https://i.imgur.com/dZlj4Wz.png)
+ ![User Return Screen](https://i.imgur.com/lDPS3Ye.png)
+
+ ### Admin Screen
+ ![Admin Dashboard](https://i.imgur.com/j1yT99u.png)
+ ![Admin Add Book Screen](https://i.imgur.com/fZA5Wgw.png)
+ ![Admin Edit Book Screen](https://i.imgur.com/OpcCZqs.png)
  ## Installation/Usage
- > Instructions on installing and running your application
+ - Clone this repo into a local repository
+ - Run `cmake .` into `make`
+ - Run main executable file `./run_main` to start the program
+ - To run test files, run `./run_tests`
+ - When prompted to enter a choice, enter a number corresponding to the available options.
+ - Otherwise, input a string and press enter to submit the input.  
  ## Testing
- > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
+ - The program was tested using the `googletest` submodule that is already inside the test directory.
+ - Unit tests were manually run as listed in the Installation/Usage above.
+ - All unit tests are compiled using `./run_tests` and were verified to be passing before pushing/merging to the main branch.
  
 
