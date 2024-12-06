@@ -10,7 +10,7 @@ class MainMenuScreen : public DisplayScreen {
     public:
         MainMenuScreen() {};
         void render() override;
-        void handleMainMenuChoice(int choice);
+        void handleMainMenuChoice();
 };
 
 #endif

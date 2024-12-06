@@ -32,21 +32,6 @@ bool User::registerUser(const string& username, const string& password) {
         return false;
     }
 
-    bool hasUpper = false, hasLower = false, hasDigit = false;
-    for (char ch: password) {
-        if (isupper(ch)) {
-            hasUpper = true;
-        } else if (islower(ch)) {
-            hasLower = true;
-        } else if (isdigit(ch)) {
-            hasDigit = true;
-        }
-    }
-
-    if (!hasUpper || !hasLower || !hasDigit) {
-        return false;
-    }
-
     ofstream file("data/users.csv", ios::app);
     if (!file.is_open()) {
         cerr << "Error opening " << "data/users.csv" << endl;

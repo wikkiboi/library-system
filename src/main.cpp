@@ -8,6 +8,7 @@
 #include "Borrow.h"
 #include "Catalog.h"
 #include "Book.h"
+#include "screens/MainMenuScreen.h"
 
 using namespace std;
 
@@ -280,33 +281,9 @@ void generateBooks() {
 }
 
 int main() {
-    bool quit = false;
-    Client client;
-    while (!quit) {
-        displayMainMenu();
-
-        int choice;
-        cin >> choice;
-
-        if (cin.fail() || choice < 0 && choice > 5) {
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cout << "Invalid option. Please try again.\n";
-            continue;
-        }
-
-        if (choice == 1) {
-            handleRegister(client);
-        } else if (choice == 2) {
-            handleLogin(client);
-        } else if (choice == 3) {
-    	    displayCatalog(client);
-        } else if (choice == 4) {
-    	    displayRecommendations(client);
-	    } else if (choice == 5) {
-            quit = true;
-        } 
-    }
+    MainMenuScreen menu;
+    menu.render();
+    menu.handleMainMenuChoice();
 
     return 0;    
 }
