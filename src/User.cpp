@@ -6,6 +6,11 @@
 
 using namespace std;
 
+User::User(const string& username, const string& password) {
+        this->username = username;
+        this->password = password;
+    }
+
 bool User::registerUser(const string& username, const string& password) {
     if (username.empty()) {
         return false;
@@ -95,8 +100,4 @@ bool User::loginUser(const string& username, const string& password) {
 
     file.close();
     return false;
-}
-
-bool User::getLoggedIn() {
-    return this->loggedIn;
 }

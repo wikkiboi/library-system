@@ -8,14 +8,35 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
-
+#include "Catalog.h"
 using namespace std;
+
 
 string timeToDate(time_t seconds) {
     char buffer[11];
     strftime(buffer, sizeof(buffer), "%Y-%m-%d", localtime(&seconds));
     return string(buffer);
 }
+
+void Borrow::setBorrowId(const string& borrowId) {
+    this->borrowId = borrowId;
+};
+
+void Borrow::setBookId(const string& bookId) {
+    this->bookId = bookId;
+};
+
+void Borrow::setBorrowDateOnly(const string& borrowDate) {
+    this->borrowDateOnly = borrowDate;
+};
+
+void Borrow::setDueDateOnly(const string& dueDate) {
+    this->dueDateOnly = dueDate;
+};
+
+void Borrow::setRenewalCount(const int& renewalCount) {
+    this->renewalCount = renewalCount;
+};
 
 bool Borrow::borrowBook(const string& libraryId, Book &book) {
     if(!book.getAvailability()) return false;
@@ -36,11 +57,20 @@ bool Borrow::borrowBook(const string& libraryId, Book &book) {
     "," << libraryId << "," << book.getBookId() << "," << timeToDate(borrowDate) << "," << timeToDate(dueDate) << "\n";
     file.close();
     book.setAvailability(false);
+    book.updateBookDetails(book.getTitle(), book.getAuthor(), book.getGenre(), book.getSubGenre(), book.getYear(), book.getAvailability());
+
     return true;
 }
 
-string Borrow::getDueDate() const {
-    return timeToDate(this->dueDate);
+void Borrow::displayBorrowInfo() const {
+    Catalog catalog;
+    Book book = catalog.getBookFromCatalog(bookId);
+
+    cout << "Borrow ID: " << borrowId << "\n";
+    cout << "Book Name: " << book.getTitle() << "\n";
+    cout << "Borrow Date: " << borrowDateOnly << "\n";
+    cout << "Borrow Due Date: " << dueDateOnly << "\n";
+    cout << "Renewal Count: " << "3" << "\n";
 }
 
 string Borrow::generateUniqueBorrowId() const {
@@ -75,14 +105,6 @@ string Borrow::generateUniqueBorrowId() const {
 }
 
 
-string Borrow::getBorrowId() const {
-    return this->borrowId;
-}
-
-int Borrow::getRenewalCount() const {
-    return this->renewalCount;
-}
-
 void Borrow::incrementRenewalCount() {
     this->renewalCount++;
 }
@@ -110,6 +132,10 @@ bool Borrow::renewBorrow() {
     updateBorrowRecord();
     cout << "Renewal successful. New due date: " << getDueDate() << "\n";
     return true;
+}
+
+string Borrow::getDueDate() const {
+    return timeToDate(this->dueDate);
 }
 
 bool Borrow::updateBorrowRecord() const {
@@ -148,6 +174,9 @@ bool Borrow::updateBorrowRecord() const {
 }
 
 bool Borrow::returnBorrow() {
+    Catalog catalog;
+    book = catalog.getBookFromCatalog(this->bookId);
+
     ifstream file("data/borrow_records.csv");
     if (!file.is_open()) {
         cerr << "Error: Unable to open the file for reading!" << endl;
@@ -165,7 +194,8 @@ bool Borrow::returnBorrow() {
         getline(ss, borrowDateStr, ',');
         getline(ss, dueDateStr, ',');
 
-        if (bookId == book.getBookId()) {
+
+        if (bookId == this->bookId) {
             recordFound = true;
             continue;
         }
@@ -185,5 +215,9 @@ bool Borrow::returnBorrow() {
     }
     outFile << newContent;
     outFile.close();
+
+    book.setAvailability(true);
+    book.updateBookDetails(book.getTitle(), book.getAuthor(), book.getGenre(), book.getSubGenre(), book.getYear(), book.getAvailability());
+    
     return true;
 }

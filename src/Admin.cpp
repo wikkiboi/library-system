@@ -6,7 +6,13 @@
 #include "Book.h"
 #include "Catalog.h"
 
-bool Admin::addBook(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const {
+Admin::Admin(const User& user) : User(user.getUsername(), user.getPassword()) {
+        this->userId = user.getUserId();
+        this->libraryId = user.getLibraryId();
+        this->loggedIn = user.getLoggedIn();
+    }
+
+bool Admin::addBookNoId(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const {
     Book newBook;
     newBook.setTitle(title);
     newBook.setAuthor(author);

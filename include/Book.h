@@ -18,6 +18,7 @@ class Book {
         Book();
         void displayBookInfo() const;
 
+        //Setters 
         void setTitle(const string& title);
         void setAuthor(const string& author);
         void setGenre(const string& genre);
@@ -27,19 +28,19 @@ class Book {
         void setBookId();
         void setBookId(const string& bookId);
 
-        bool getAvailability() const;
-        string getBookId() const;
-        string getTitle() const;
-        string getAuthor() const;
-        string getGenre() const;
-        string getSubGenre() const;
-        int getYear() const;
+        //Getters
+        bool getAvailability() const { return isAvailable; };
+        string getBookId() const { return bookId; };
+        string getTitle() const { return title; };
+        string getAuthor() const { return author; };
+        string getGenre() const { return genre; };
+        string getSubGenre() const { return subGenre; };
+        int getYear() const { return year; };
 
         bool addToBookCatalog() const;
+        bool updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable);
         string detailsToString() const;
         string generateUniqueBookId() const;
-
-        bool updateBookDetails(const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable);
 
         friend class Admin;
 };

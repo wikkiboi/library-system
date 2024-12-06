@@ -4,11 +4,85 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <string>
 #include "Book.h"
 #include "Catalog.h"
 #include "Borrow.h"
 
 using namespace std;
+
+Client::Client(const User& user) : User(user.getUsername(), user.getPassword()) {
+        this->userId = user.getUserId();
+        this->libraryId = user.getLibraryId();
+        this->loggedIn = user.getLoggedIn();
+    }
+
+vector<Borrow> Client::loadClientsBorrowList() {
+    ifstream inFile("data/borrow_records.csv");
+    string line;
+    vector<Borrow> borrowList;
+
+    while (getline(inFile, line)) {
+        Borrow borrow;
+        stringstream ss(line);
+        string value;
+
+        string borrowId;
+        string borrowDate;
+        string dueDate;
+        string borrowerId;
+        string bookId;
+
+        getline(ss, borrowId, ',');
+        getline(ss, borrowerId, ',');
+        getline(ss, bookId, ',');
+        getline(ss, borrowDate, ',');
+        getline(ss, dueDate, ',');
+        
+        if (libraryId == borrowerId) {
+            borrow.setBorrowId(borrowId);
+            borrow.setBorrowDateOnly(borrowDate);
+            borrow.setDueDateOnly(dueDate);
+            borrow.setBookId(bookId);
+
+            borrowList.push_back(borrow);
+        }
+    }
+
+    return borrowList;
+}
+
+Borrow Client::getBookFromBorrowList(const string& borrowId) const {
+    ifstream inFile("data/borrow_records.csv");
+    string line;
+    Borrow borrowRecord;
+
+    while (getline(inFile, line)) {
+        size_t pos = line.find(',');
+        string currentBookId = line.substr(0, pos);
+
+        if (currentBookId == borrowId) {
+            size_t nextPos = line.find(',', pos + 1);
+            borrowRecord.setBorrowId(currentBookId);
+
+            pos = nextPos;
+            nextPos = line.find(',', pos + 1);
+            borrowRecord.setBookId(line.substr(pos + 1, nextPos - pos - 1));
+
+            pos = nextPos;
+            nextPos = line.find(',', pos + 1);
+            borrowRecord.setBorrowDateOnly(line.substr(pos + 1, nextPos - pos - 1));
+
+            pos = nextPos;
+            nextPos = line.find(',', pos + 1);
+            borrowRecord.setDueDateOnly(line.substr(pos + 1, nextPos - pos - 1));
+
+            break;
+        }
+    }
+
+    return borrowRecord;
+}
 
 bool Client::clientBorrowBook(Book& book) {
     Borrow borrow;
@@ -21,14 +95,6 @@ bool Client::clientBorrowBook(Book& book) {
         return false;
     }
     return true;
-}
-
-vector<Borrow> Client::getClientsBorrowList() {
-    return this->borrowList;
-}
-
-vector<Book> Client::getClientsBookHistory() {
-    return this->bookHistory;
 }
 
 bool Client::clientRenewBook(Borrow& record) {

@@ -12,13 +12,17 @@ class User {
         string libraryId;
         bool loggedIn = false;
     public:
-        // User-related functions
+        User() {};
+        User(const string& username, const string& password);
+
+        bool getLoggedIn() const { return loggedIn; }
+        string getUserId() const { return userId; }
+        string getUsername() const { return username; }
+        string getPassword() const { return password; }
+        string getLibraryId() const { return libraryId; }
+
         bool registerUser(const string& username, const string& password);
         bool loginUser(const string& username, const string& password);
-
-        // Book-related function
-        bool addBook(const string& title, const string& author, const string& genre);
-        bool getLoggedIn();
 };
 
 #endif

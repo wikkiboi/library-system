@@ -119,7 +119,7 @@ vector<Book> Catalog::loadBookCatalog() {
 
 vector<Book> Catalog::getBookRecommendations(Client client) {
     vector<Book> bookCatalog = loadBookCatalog();
-    vector<Book> bookHistory = client.getClientsBookHistory();
+    vector<Book> bookHistory = client.loadClientsBookHistory();
     
     const int listSize = 20;
 

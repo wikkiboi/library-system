@@ -13,7 +13,7 @@ TEST(AdminTest, AddBook) {
     int year = 1970;
     bool isAvailable = true;
 
-    EXPECT_TRUE(admin.addBook(bookId, title, author, genre, subGenre, year, isAvailable));
+    EXPECT_TRUE(admin.addBookNoId(bookId, title, author, genre, subGenre, year, isAvailable));
 }
 
 TEST(AdminTest, AddBookNoId) {

@@ -8,7 +8,9 @@ using namespace std;
 
 class Admin: public User {
     public:
-        bool addBook(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const;
+        Admin() {};
+        Admin(const User& user);
+        bool addBookNoId(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const;
         bool addBook(const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const;
         bool editBook(const string& bookId, const string& newTitle, const string& newAuthor, const string& newGenre, const string& newSubGenre, const int& year, const bool& isAvailable) const;
         bool deleteBook(const string& bookId) const;
