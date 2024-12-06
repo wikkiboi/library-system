@@ -5,6 +5,20 @@
 TEST(AdminTest, AddBook) {
     Admin admin;
     
+    string bookId = "12345";
+    string title = "Test Book";
+    string author = "Test Author";
+    string genre = "Fiction";
+    string subGenre = "Fantasy";
+    int year = 1970;
+    bool isAvailable = true;
+
+    EXPECT_TRUE(admin.addBookNoId(bookId, title, author, genre, subGenre, year, isAvailable));
+}
+
+TEST(AdminTest, AddBookNoId) {
+    Admin admin;
+    
     string title = "Test Book";
     string author = "Test Author";
     string genre = "Fiction";

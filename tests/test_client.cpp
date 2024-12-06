@@ -22,7 +22,7 @@ TEST(ClientTest, BorrowBook) {
     string subGenre = "Fantasy";
     int year = 2000;
     bool isAvailable = true;
-    bool addBook = admin.addBook(bookId, title, author, genre, subGenre, year, isAvailable);
+    bool addBook = admin.addBook(title, author, genre, subGenre, year, isAvailable);
     EXPECT_TRUE(addBook);
 
     Book borrowedBook = catalog.getBookFromCatalog(bookId);

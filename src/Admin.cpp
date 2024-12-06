@@ -16,6 +16,18 @@ Admin::Admin(const string& username, const string& password)
     }
 }
 
+bool Admin::addBookNoId(const string& bookId, const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const {
+    Book newBook;
+    newBook.setTitle(title);
+    newBook.setAuthor(author);
+    newBook.setGenre(genre);
+    newBook.setSubGenre(subGenre);
+    newBook.setYear(year);
+    newBook.setAvailability(isAvailable);
+    newBook.setBookId(bookId);
+    return newBook.addToBookCatalog();
+}
+
 bool Admin::addBook(const string& title, const string& author, const string& genre, const string& subGenre, const int& year, const bool& isAvailable) const {
     Book newBook;
     newBook.setTitle(title);
