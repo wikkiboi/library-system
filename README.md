@@ -52,10 +52,12 @@ Any operation fully completed will output text alerting the user that the operat
 >- Confirm Password: [User Input] <br/>
 >- Registration successful! Your Library ID is [generated ID]. <br/>
 
-## Class Diagram
-![LibraryLink Class Diagram](https://i.imgur.com/FAgkb1t.png)
+## Class Diagram (most up-to-date version)
+![LibraryLink Class Diagram](https://i.imgur.com/bFHyrqr.png)
  * DisplayScreen is an abstract class that specific screen layout classes i.e. AdminScreen, UserScreen, etc. inherit from.
  * Each specific screen class is associated with the class it is named after, for example, Admin and AdminScreen.
+ * On initial entry of the program, we enter through the MainMenuScreen, which then prompts the loginScreen and the reigsterScreen.
+ * There are also screen classes for the Admin add, edit, and remove books as well as Client borrow, renew, and return screens
  * User is the base class for all system users, including RegularUser and Administrator. 
  * The RegularUser class inherits from the User class and adds functionality specific to library users. 
  * The Administrator class also inherits from the User class and provides administrative privileges. 
@@ -66,7 +68,7 @@ Any operation fully completed will output text alerting the user that the operat
  * The BorrowRecord class represents a record of each borrowing by the user and allows tracking and management of borrowed books and the user's borrowing history. 
    * It also represents the user's borrowing history and allows tracking and management of borrowed books and the user's borrowing history.
  
-## Updated Class Diagram
+## SOLID Class Diagram
 ![LibraryLink Class Diagram](https://i.imgur.com/42uroKY.png)
  * ### New Abstract DisplayScreen Class
     * Open-Closed Principle
