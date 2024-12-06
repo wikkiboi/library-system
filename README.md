@@ -35,13 +35,13 @@ All users will be prompted to log in or register for an account with a username/
 
 ## Screen Layouts
 Each screen will lead to a prompt with text-based options, where the user inputs commands or select from numbered options. In the navigation diagram, the black sub-boxes are the options for that screen and any additional black sub-boxes are output lines that prompt additional input, verification, or confirmation.
-For example, the Main Menu screen for a regular user would look like:
->Main Menu: <br/>
->- [1] View Account Status <br/>
->- [2] Browse Book Catalog <br/>
->- [3] Borrow/Renew a Book <br/>
->- [4] View Recommendations <br/>
->- [5] View Borrow List/History <br/>
+For example, the User screen for a non-admin user would look like:
+>User Dashboard: <br/>
+>- [1] Browse Book Catalog <br/>
+>- [2] Borrow Book <br/>
+>- [3] Renew Book <br/>
+>- [4] Return Book <br/>
+>- [5] View Recommendations <br/>
 >- [6] Log Out <br/>
 >- Enter the number of your choice: <br/>
 
@@ -51,6 +51,13 @@ Any operation fully completed will output text alerting the user that the operat
 >- Password: [User Input] <br/>
 >- Confirm Password: [User Input] <br/>
 >- Registration successful! Your Library ID is [generated ID]. <br/>
+
+On the initial launch screen, we have the following options:
+>LibraryLink <br/>
+>- [1] Register User <br/>
+>- [2] Login <br/>
+>- [3] Login as admin <br/>
+>- [4] Quit <br/>
 
 ## Class Diagram (most up-to-date version)
 ![LibraryLink Class Diagram](https://i.imgur.com/bFHyrqr.png)
