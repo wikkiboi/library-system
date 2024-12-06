@@ -10,15 +10,12 @@
 
 using namespace std;
 
-Client::Client(const string& username, const string& password)
-    : User(username, password) {
-    cout << "Client created: " << username << endl;
-    if (!getLoggedIn()) {
-        cout << "Login failed for client: " << username << endl;
-    } else {
-        cout << "Client logged in: " << username << endl;
+Client::Client(const User& user) : User(user.getUsername(), user.getPassword()) {
+        this->userId = user.getUserId();
+        this->libraryId = user.getLibraryId();
+        this->loggedIn = user.getLoggedIn();
+        this->isAdmin = false;
     }
-}
 
 bool Client::clientBorrowBook(Book& book) {
     Borrow borrow;

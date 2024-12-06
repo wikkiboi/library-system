@@ -10,7 +10,7 @@ private:
     Client& client;
     Catalog catalog;
 public:
-    explicit RecommendationScreen(Client& clientRef);
+    RecommendationScreen(Client& clientRef);
     void render() override;
 };
 

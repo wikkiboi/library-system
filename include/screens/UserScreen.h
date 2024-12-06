@@ -8,9 +8,9 @@ class UserScreen : public DisplayScreen {
 private:
     Client& client;
 public:
-    explicit UserScreen(Client& clientRef);
+    UserScreen(Client& clientRef);
     void render() override;
-    void handleUserChoice(int choice);
+    bool handleUserChoice();
 };
 
 #endif

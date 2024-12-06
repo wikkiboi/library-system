@@ -6,7 +6,7 @@
 
 using namespace std;
 
-User::User(const string& username = "", const string& password = "") {
+User::User(const string& username, const string& password) {
         this->username = username;
         this->password = password;
     }
@@ -100,8 +100,4 @@ bool User::loginUser(const string& username, const string& password) {
 
     file.close();
     return false;
-}
-
-bool User::getLoggedIn() {
-    return this->loggedIn;
 }

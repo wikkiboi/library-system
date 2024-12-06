@@ -10,7 +10,7 @@ private:
 public:
     explicit AdminScreen(Admin& adminRef);
     void render() override;
-    void handleAdminChoice(int choice);
+    bool handleAdminChoice();
 };
 
 #endif

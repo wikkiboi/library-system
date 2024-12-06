@@ -1,5 +1,9 @@
 #include "screens/LoginScreen.h"
+#include "screens/UserScreen.h"
+#include "screens/AdminScreen.h"
 #include "User.h"
+#include "Admin.h"
+#include "Client.h"
 #include <iostream>
 #include <string>
 
@@ -16,6 +20,14 @@ void LoginScreen::render() {
 
         if (user.loginUser(username, password)) {
             cout << "Login Success!" << endl;
+            if (user.getAdminFlag()) {
+                Admin admin(user);
+                AdminScreen adminScreen(admin);
+            } else {
+                Client client(user);
+                UserScreen userScreen(client);
+                userScreen.render();
+            }
             break;
         } else {
             cout << "Invalid username or password!" << endl;
