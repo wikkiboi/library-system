@@ -39,7 +39,7 @@ inline void restoreFile(const string& originalContent, const string& filePath) {
     }
 }
 
-TEST(BookTest, CatalogCreateTempBookFile) {
+TEST(BookTest, BookCreateTempBookFile) {
     EXPECT_NO_THROW({
         originalContent = backUpFile("data/books.csv");
         eraseFile("data/books.csv");
@@ -129,7 +129,7 @@ TEST(BookTest, BookUpdate) {
     restoreFile(originalContent, "data/books.csv");
 }
 
-TEST(BookTest, CatalogRestoreOriginalBookFile) {
+TEST(BookTest, BookRestoreOriginalBookFile) {
     EXPECT_NO_THROW({
         restoreFile(originalContent, "data/books.csv");
     });
